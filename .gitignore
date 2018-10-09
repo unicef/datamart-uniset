@@ -1,5 +1,6 @@
 .venv
 .tox
 dist/
+uniset.egg-info
 
 .env
