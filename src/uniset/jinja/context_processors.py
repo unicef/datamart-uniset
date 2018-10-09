@@ -1,5 +1,6 @@
 from flask import g
 from superset import app
+from uniset import VERSION
 
 
 @app.context_processor
@@ -17,9 +18,7 @@ def chpro_roles():
 @app.context_processor
 def version():
     try:
-        from superset import appbuilder, app, db, MyIndexView
         config = app.config
-        from uniset import VERSION
         ss_version = config.get('VERSION_STRING')
 
         return dict(verion_uniset=VERSION,

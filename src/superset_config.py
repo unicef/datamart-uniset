@@ -3,7 +3,7 @@
 # ---------------------------------------------------------
 import os
 
-from uniset.security import UnisetSecurityManager
+# from uniset.security import UnisetSecurityManager
 
 ROW_LIMIT = 5000
 
@@ -34,7 +34,6 @@ WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
 MAPBOX_API_KEY = ''
 APP_NAME = "UNIset"
 APP_THEME = "rph.css"
-# CUSTOM_SECURITY_MANAGER = UnisetSecurityManager
 
 ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 

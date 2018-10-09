@@ -1,15 +1,16 @@
 import os
 import warnings
-warnings.simplefilter("ignore", UserWarning, 144)  # isort:skip
 
 from colorama import Fore, Style
 from flask_script import Command, Option
 
 from flask import Blueprint, url_for
-from superset import MyIndexView, app, appbuilder, db
+from superset import app, appbuilder, db
 from superset.cli import manager
 
 import uniset
+
+warnings.simplefilter("ignore", UserWarning, 144)  # isort:skip
 
 
 class Version(Command):
@@ -54,7 +55,6 @@ def list_routes():
 
 def main():
     from uniset import ROOT
-    from uniset import views
 
     app.jinja_loader.searchpath.insert(0, os.path.join(ROOT, 'templates'))
 
@@ -64,6 +64,7 @@ def main():
                    static_url_path='/uniset')
     appbuilder.get_app.register_blueprint(bp)
 
-    from uniset.jinja import context_processors
+    from uniset import views
+    from uniset.jinja import context_processors  # noqa
 
     manager.run()
