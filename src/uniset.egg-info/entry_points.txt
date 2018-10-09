@@ -1,0 +1,3 @@
+[console_scripts]
+uniset = uniset.bin.cli:main
+

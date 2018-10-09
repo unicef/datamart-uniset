@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+superset = "==0.27.0"
+click = "==6.7"
+markdown = "==2.6.11"
+"psycopg2" = "*"
+mock = "*"
+pytest-flask = "*"
+Flask = ">=0.10.0,<0.12.2"
+#pip = "<18.0"
+#sqlalchemy= "*"
+#uwsgi = "*"
+#mysqlclient = "*"
+
+[dev-packages]
+pdbpp="*"
+ipython="*"
+pytest="*"
+
+[requires]
+python_version = "3.6"
