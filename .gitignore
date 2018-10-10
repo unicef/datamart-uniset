@@ -2,6 +2,7 @@
 .tox
 dist/
 uniset.egg-info
+~build
 
 .env
 .coverage
