@@ -18,6 +18,10 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
     steps:
+      - run:
+          name: install requirements
+          command: |
+                sudo apt-get install libsasl2-dev
       - restore_cache:
           keys:
             - source-{{ .Branch }}-{{ .Revision }}
