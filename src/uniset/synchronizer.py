@@ -33,4 +33,3 @@ class UnisetSynchronizer(Synchronizer):
             profile.uuid = values['azure_id']
         P.add(profile)
         return values, created
-

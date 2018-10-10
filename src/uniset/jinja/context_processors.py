@@ -3,7 +3,6 @@ from superset import app
 
 from uniset import VERSION
 
-
 # @app.context_processor
 # def chpro_roles():
 #     try:

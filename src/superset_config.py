@@ -2,6 +2,7 @@
 # Superset specific config
 # ---------------------------------------------------------
 import os
+
 from uniset.config import env
 
 # from uniset.security import UnisetSecurityManager

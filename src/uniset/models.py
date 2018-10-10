@@ -1,6 +1,6 @@
 from flask_appbuilder import Model
 from sqlalchemy import Column, ForeignKey, Integer, Sequence, String
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import backref, relationship
 
 
 class UserProfile(Model):

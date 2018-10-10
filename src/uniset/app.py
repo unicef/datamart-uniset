@@ -1,9 +1,10 @@
 import os
-from superset import app, appbuilder
+
 from flask import Blueprint
-from uniset.jinja import context_processors  # noqa
+from superset import app, appbuilder
 
 from uniset import ROOT, views
+from uniset.jinja import context_processors  # noqa
 
 app.jinja_loader.searchpath.insert(0, os.path.join(ROOT, 'templates'))
 bp = Blueprint('uniset', __name__, url_prefix='/static',

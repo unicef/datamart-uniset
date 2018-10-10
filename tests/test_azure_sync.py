@@ -8,7 +8,6 @@ import vcr
 from uniset.azure.synchronizer import SyncResult
 from uniset.synchronizer import UnisetSynchronizer
 
-
 # from uniset.azure.synchronizer import Synchronizer, SyncResult
 
 
@@ -111,7 +110,7 @@ def test_get_token():
     assert token
 
 
-# @vcr.use_cassette('tests/vcr_cassettes/get_token.yaml')
+@vcr.use_cassette('tests/vcr_cassettes/exception.yaml')
 def test_exception():
     with mock.patch('requests.get', side_effect=ConnectionError()):
         synchronizer = UnisetSynchronizer()

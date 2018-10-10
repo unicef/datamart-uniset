@@ -2,15 +2,14 @@ import os
 import tempfile
 
 import pytest
-from flask_webtest import TestApp
 from flask_appbuilder.security.sqla.models import User
+from flask_webtest import TestApp
 
 
 @pytest.fixture(autouse=True)
 def conf():
     os.environ['DATABASE_URL'] = 'sqlite:///memory'
-    from superset import cli, security_manager, db
-    from uniset.app import app
+    from superset import security_manager
     security_manager.create_db()
 
 
@@ -38,13 +37,12 @@ def client(app):
 
 @pytest.fixture
 def tapp(app):
-    from superset import cli, security_manager, db
+    from superset import security_manager, db
 
     security_manager.create_db()
     db.session.merge(User(id=1, username='admin', first_name='F',
                           last_name='L', email='e', password='123'))
     db.session.commit()
-    admin = security_manager.find_user('admin')
     tapp = TestApp(app, db=db, use_session_scopes=True)
     tapp.set_authorization(('Basic', ('admin', '123')))
     return tapp
