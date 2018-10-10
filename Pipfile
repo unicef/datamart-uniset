@@ -30,3 +30,8 @@ tox = ">=3.5.2"
 
 [requires]
 python_version = "3.6"
+
+[scripts]
+
+clean = "rm -fr ~build dist .pytest_cache"
+fullclean = "pipenv run clean && rm -fr .tox"
