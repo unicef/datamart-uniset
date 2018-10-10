@@ -4,3 +4,4 @@ dist/
 uniset.egg-info
 
 .env
+.coverage

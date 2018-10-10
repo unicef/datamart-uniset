@@ -1,6 +1,7 @@
 import logging
 
 import requests
+
 from . import config
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,9 @@ class SyncResult:
             raise ValueError("Cannot add %s to SyncResult object" % type(other))
 
     def __repr__(self):
-        return f"<SyncResult: {len(self.created)} {len(self.updated)} {len(self.skipped)}>"
+        return "<SyncResult: {} {} {}>".format(len(self.created),
+                                               len(self.updated),
+                                               len(self.skipped))
 
     def __eq__(self, other):
         if isinstance(other, SyncResult):
@@ -55,7 +58,7 @@ NotSet = object()
 
 
 class Synchronizer:
-    def __init__(self, mapping=None, echo=None):
+    def __init__(self, mapping=None, echo=None, extra=None):
         self.field_map = dict(mapping or USERMAP)
         self.user_pk_fields = self.field_map.pop('_pk')
         self._baseurl = '{}/{}/users'.format(config.AZURE_GRAPH_API_BASE_URL,
@@ -65,6 +68,7 @@ class Synchronizer:
         self.next_link = None
         self._delta_link = ''
         self.echo = echo or (lambda l: True)
+        self.extra = extra or {}
 
     def get_token(self):
         if not config.AZURE_CLIENT_ID and config.AZURE_CLIENT_SECRET:
@@ -99,11 +103,11 @@ class Synchronizer:
                     if data["error"]["message"] == "Access token has expired.":
                         continue
                     else:
-                        raise ConnectionError(f'400: Error processing the response {response.content}')
+                        raise ConnectionError('400: Error processing the response {}'.format(response.content))
 
                 elif response.status_code != 200:
-                    raise ConnectionError(f'Code {response.status_code}. '
-                                          f'Error processing the response {response.content}')
+                    raise ConnectionError(
+                        'Code {0.status_code}. Error processing the response {0.content}'.format(response))
                 break
             except ConnectionError as e:
                 logger.exception(e)
@@ -124,10 +128,10 @@ class Synchronizer:
                 yield values.pop()
             except IndexError:
                 if not self.next_link:
-                    logger.debug(f"All pages  fetched. deltaLink: {self.delta_link}")
+                    logger.debug("All pages  fetched. deltaLink: {}".format(self.delta_link))
                     break
                 values = self.get_page(self.next_link)
-                logger.debug(f"fetched page {pages}")
+                logger.debug("fetched page {}".format(pages))
                 pages += 1
             except KeyboardInterrupt:
                 break
@@ -135,7 +139,7 @@ class Synchronizer:
                 logger.exception(e)
                 break
 
-    def get_record(self, user_info: dict) -> (dict, dict):
+    def get_record(self, user_info):
         data = {fieldname: user_info.get(mapped_name, '')
                 for fieldname, mapped_name in self.field_map.items()}
         pk = {fieldname: data.pop(fieldname) for fieldname in self.user_pk_fields}
@@ -155,7 +159,7 @@ class Synchronizer:
     #                                                         defaults=values)
     #     return user
 
-    def resume(self, *, delta_link=None, max_records=None):
+    def resume(self, delta_link=None, max_records=None):
         if delta_link:
             self.startUrl = delta_link
         return self.syncronize(max_records)
@@ -169,8 +173,6 @@ class Synchronizer:
     def _store(self, pk, values):
         """ :return  created """
         raise NotImplementedError
-        # return self.user_model.objects.update_or_create(**pk,
-        #                                                  defaults=values)
 
     def syncronize(self, max_records=None):
         logger.debug("Start Azure user synchronization")
@@ -180,16 +182,16 @@ class Synchronizer:
                 pk, values = self.get_record(user_info)
                 if self.is_valid(values):
                     user_data = self._store(pk=pk, values=values)
-                    # user_data = self.user_model.objects.update_or_create(**pk,
-                    #                                                      defaults=values)
                     self.echo(user_data)
                     results.log(user_data)
                 else:
                     results.log(user_info)
                 if max_records and i > max_records:
                     break
+            else:
+                results.skipped.append("")
         except Exception as e:
             logger.exception(e)
             raise
-        logger.debug(f"End Azure user synchronization: {results}")
+        logger.debug("End Azure user synchronization: {}".format(results))
         return results

@@ -1,6 +1,6 @@
 from flask_appbuilder import Model
-from sqlalchemy import Column, Integer, ForeignKey, String, Sequence
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, ForeignKey, Integer, Sequence, String
+from sqlalchemy.orm import relationship, backref
 
 
 class UserProfile(Model):
@@ -9,4 +9,8 @@ class UserProfile(Model):
     uuid = Column(String(256), unique=True)
 
     user_id = Column(Integer, ForeignKey('ab_user.id'), nullable=False)
-    user = relationship("User", backref='profiles')
+    # should be OneToOne but cannot be done in SQLAlchemy without touch User
+    # and but in SuperSet prevent changing SecurityManager
+    user = relationship("User",
+                        backref=backref("profiles", cascade="all, delete-orphan")
+                        )

@@ -1,12 +1,10 @@
-import os
 import warnings
+from urllib.parse import unquote
 
 from colorama import Fore, Style
 from flask_script import Command, Option
 
-from flask import Blueprint, url_for
-from superset import app, appbuilder, db
-from superset.cli import manager
+from flask import url_for
 
 import uniset
 
@@ -17,6 +15,9 @@ class Version(Command):
     option_list = [Option('-v', '--verbose', action='store_true', help='Show extra information')]
 
     def run(self, verbose):
+        from uniset.app import app
+        from superset import db
+
         line = Fore.BLUE + '-=' * 20
 
         config = app.config
@@ -34,37 +35,35 @@ class Version(Command):
         print(Style.RESET_ALL)
 
 
-@manager.command
-def list_routes():
-    import urllib
-    output = []
-    for rule in app.url_map.iter_rules():
+class ListRoutes(Command):
+    option_list = [Option('-s', '--short', action='store_true', help='shorten output')]
 
-        options = {}
-        for arg in rule.arguments:
-            options[arg] = "[{0}]".format(arg)
+    def run(self, short):
+        from uniset.app import app
+        output = []
+        for rule in app.url_map.iter_rules():
 
-        methods = ','.join(rule.methods)
-        url = url_for(rule.endpoint, **options)
-        line = urllib.unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))
-        output.append(line)
+            options = {}
+            for arg in rule.arguments:
+                options[arg] = "[{0}]".format(arg)
+            if short:
+                methods = ''
+            else:
+                methods = "{:25s}".format(','.join(rule.methods))
 
-    for line in sorted(output):
-        print(line)
+            url = url_for(rule.endpoint, **options)
+            line = unquote("{:50s} {} {}".format(rule.endpoint, methods, url))
+            output.append(line)
+            print(line)
+
+        for line in sorted(output):
+            print(line)
 
 
 def main():
-    from uniset import ROOT
-
-    app.jinja_loader.searchpath.insert(0, os.path.join(ROOT, 'templates'))
-
-    bp = Blueprint('uniset', __name__, url_prefix='/static',
-                   template_folder='templates',
-                   static_folder=os.path.join(ROOT, 'static'),
-                   static_url_path='/uniset')
-    appbuilder.get_app.register_blueprint(bp)
-
-    from uniset import views
-    from uniset.jinja import context_processors  # noqa
+    # from uniset.app import app
+    # from uniset import ROOT
+    from superset.cli import manager
+    manager.add_command('list_routes', ListRoutes())
 
     manager.run()

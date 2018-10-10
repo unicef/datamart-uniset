@@ -1,1 +1,1 @@
-from . import users  # noqa
+from .users import LoadUserView, UserProfileView  # noqa

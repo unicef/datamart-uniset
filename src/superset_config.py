@@ -2,7 +2,9 @@
 # Superset specific config
 # ---------------------------------------------------------
 import os
+from uniset.config import env
 
+# from uniset.security import UnisetSecurityManager
 # from uniset.security import UnisetSecurityManager
 
 ROW_LIMIT = 5000
@@ -33,9 +35,11 @@ WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
 # Set this API key to enable Mapbox visualizations
 MAPBOX_API_KEY = ''
 APP_NAME = "UNIset"
-APP_THEME = "rph.css"
-
-ADDON_MANAGERS = ['uniset.manager.UnisetManager']
+# APP_THEME = "rph.css"
+# APP_THEME = "cyborg.css"       # COOL
+APP_THEME = "spacelab.css"      # NICE
+# CUSTOM_SECURITY_MANAGER=UnisetSecurityManager
+# ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 
 # CACHE_CONFIG = {
 #     'CACHE_TYPE': 'redis',
@@ -43,3 +47,14 @@ ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 #     'CACHE_KEY_PREFIX': 'superset_results',
 #     'CACHE_REDIS_URL': 'redis://redis:6379/9',
 # }
+MAIL_SERVER = env('MAIL_SERVER')
+# MAIL_PORT = 25,
+# MAIL_USE_TLS = False,
+# MAIL_USE_SSL = False,
+# MAIL_DEBUG = False,
+# MAIL_USERNAME = '',
+# MAIL_PASSWORD = '',
+# MAIL_DEFAULT_SENDER = '',
+# MAIL_MAX_EMAILS = '',
+# MAIL_SUPPRESS_SEND = True,
+# MAIL_ASCII_ATTACHMENTS = False
