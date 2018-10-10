@@ -3,7 +3,7 @@
 # ---------------------------------------------------------
 import os
 
-from uniset.config import env
+# from uniset.config import env
 
 # from uniset.security import UnisetSecurityManager
 # from uniset.security import UnisetSecurityManager
@@ -48,7 +48,7 @@ APP_THEME = "spacelab.css"      # NICE
 #     'CACHE_KEY_PREFIX': 'superset_results',
 #     'CACHE_REDIS_URL': 'redis://redis:6379/9',
 # }
-MAIL_SERVER = env('MAIL_SERVER')
+# MAIL_SERVER = env('MAIL_SERVER')
 # MAIL_PORT = 25,
 # MAIL_USE_TLS = False,
 # MAIL_USE_SSL = False,

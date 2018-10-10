@@ -2,8 +2,6 @@ import os
 import tempfile
 
 import pytest
-from flask_appbuilder.security.sqla.models import User
-from flask_webtest import TestApp
 
 
 @pytest.fixture(autouse=True)
@@ -35,14 +33,14 @@ def client(app):
     return client
 
 
-@pytest.fixture
-def tapp(app):
-    from superset import security_manager, db
-
-    security_manager.create_db()
-    db.session.merge(User(id=1, username='admin', first_name='F',
-                          last_name='L', email='e', password='123'))
-    db.session.commit()
-    tapp = TestApp(app, db=db, use_session_scopes=True)
-    tapp.set_authorization(('Basic', ('admin', '123')))
-    return tapp
+# @pytest.fixture
+# def tapp(app):
+#     from superset import security_manager, db
+#
+#     security_manager.create_db()
+#     db.session.merge(User(id=1, username='admin', first_name='F',
+#                           last_name='L', email='e', password='123'))
+#     db.session.commit()
+#     tapp = TestApp(app, db=db, use_session_scopes=True)
+#     tapp.set_authorization(('Basic', ('admin', '123')))
+#     return tapp
