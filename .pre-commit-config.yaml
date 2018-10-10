@@ -1,0 +1,41 @@
+exclude: '^$'
+fail_fast: false
+repos:
+-   repo: local
+    hooks:
+      - id: isort
+        args:
+            - --check-only
+            - -rc
+            - src/
+            - tests/
+        name: isort
+        entry: isort
+        language: system
+        types: [python]
+
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v1.4.0
+    hooks:
+    -   id: debug-statements
+        exclude: manage.py
+    -   id: end-of-file-fixer
+    -   id: flake8
+        exclude: docs/
+        args:
+        - src/
+        - tests/
+    -   id: check-merge-conflict
+    -   id: check-case-conflict
+-   repo: https://github.com/saxix/pch.git
+    rev: 374666e
+    hooks:
+    -   id: check-untracked
+        args:
+            - src
+            - tests
+    -   id: check-forbidden
+        types: [python]
+        args:
+            - --pattern=/showbrowser\(/
+            - --pattern=/print\(111/
