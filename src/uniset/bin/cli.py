@@ -62,6 +62,7 @@ class ListRoutes(Command):
 
 def main():
     from superset.cli import manager
+    from uniset.app import app  # noqa - Load uniset extras
     manager.add_command('list_routes', ListRoutes())
 
     manager.run()
