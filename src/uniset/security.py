@@ -1,13 +1,14 @@
-# from flask_appbuilder.security.sqla.manager import SecurityManager
-# from flask_appbuilder.security.sqla.models import User
 # from superset import SupersetSecurityManager
+#
+# from uniset.monkeypatch import OAuthView
 #
 #
 # class UnisetSecurityManager(SupersetSecurityManager):
-#     user_model = User
+#     authoauthview = OAuthView
+#     def __init__(self, appbuilder):
+#         super().__init__(appbuilder)
+#         self.__class__ = SupersetSecurityManager
 #
 #     def can_access(self, permission_name, view_name, user=None):
-#         # TODO: remove me
-#         print(111, "security.py:11", permission_name)
 #         return super(UnisetSecurityManager, self).can_access(permission_name, view_name, user)
 #

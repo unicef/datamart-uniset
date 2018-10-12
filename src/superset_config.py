@@ -3,18 +3,18 @@
 # ---------------------------------------------------------
 import os
 
-# from flask_appbuilder.security.manager import (AUTH_DB, AUTH_LDAP, AUTH_OAUTH,
-#                                                AUTH_OID, AUTH_REMOTE_USER, )
+from flask_appbuilder.security.manager import AUTH_OAUTH
+
 from uniset.config import env
 
 ADMINS = ('s.apostolico@gmail.com',
           'sapostolico@unicef.org',
           )
-# AUTH_TYPE = AUTH_OAUTH
+AUTH_TYPE = AUTH_OAUTH
 AUTH_USER_REGISTRATION_ROLE = "Public"
 AUTH_USER_REGISTRATION = True
 
-AUTHORITY_URL = 'https://login.microsoftonline.com/saxix.onmicrosoft.com'
+AUTHORITY_URL = 'https://login.microsoftonline.com/nikunicef.onmicrosoft.com'
 AUTH_ENDPOINT = '/oauth2/v2.0/authorize'
 TOKEN_ENDPOINT = '/oauth2/v2.0/token'
 REDIRECT_URI = 'http://localhost:8088/login/authorized'
@@ -24,8 +24,8 @@ SCOPES = ['User.Read']  # Add other scopes/permissions as needed.
 OAUTH_PROVIDERS = [
     {
         'name': 'azure',
-        'whitelist': ['@saxix.onmicrosoft.com'],
-        'icon': 'fa-surprise',
+        'whitelist': ['@nikunicef.onmicrosoft.com', '@noreply.com'],
+        'icon': 'fa-windows',
         'token_key': 'access_token',
         'remote_app': {
             'base_url': RESOURCE + API_VERSION + '/',
@@ -37,8 +37,8 @@ OAUTH_PROVIDERS = [
             'request_token_params': {
                 'scope': 'user.read openid email profile'
             },
-            'consumer_key': env.str('KEY1'),
-            'consumer_secret': env.str('SEC1')
+            'consumer_key': env.str('KEY2'),
+            'consumer_secret': env.str('SEC2')
         }
 
     },
@@ -63,8 +63,6 @@ OAUTH_PROVIDERS = [
 
 #
 
-# from uniset.security import UnisetSecurityManager
-# from uniset.security import UnisetSecurityManager
 
 ROW_LIMIT = 5000
 
