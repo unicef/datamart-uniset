@@ -32,7 +32,6 @@ def client(app):
     client = app.test_client()
     return client
 
-
 # @pytest.fixture
 # def tapp(app):
 #     from superset import security_manager, db

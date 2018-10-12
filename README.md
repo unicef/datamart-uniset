@@ -12,7 +12,6 @@ This repo contains a customized distribution of [superset](https://superset.incu
 Extras
 ------
 
-
 - ability to load users from UNICEF AD and grant them specif roles, without force them to login
 
 
@@ -20,3 +19,18 @@ Extras
 
 - Login using Organization's Active Directory
 - Send email to user to with account/granted privileges informations
+
+
+Quickstart
+----------
+
+    createdb uniset
+    uniset db upgrade
+    fabmanager create-admin \
+            --app superset \
+            --username "admin" \
+            --password <PASSWORD> \
+            --firstname "" \
+            --lastname "" \
+            --email <EMAIL>
+    uniset runserver -d

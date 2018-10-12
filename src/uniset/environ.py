@@ -1,7 +1,6 @@
 import logging
 import os
 import re
-import sys
 import warnings
 
 logger = logging.getLogger(__name__)
@@ -214,8 +213,7 @@ class Env(object):
 
     def get_content(self):
         if self.env_file is None:
-            frame = sys._getframe()
-            self.env_file = os.path.join(os.path.dirname(frame.f_back.f_code.co_filename), '.env')
+            self.env_file = os.environ.get('ENV_FILE', os.path.join(os.curdir, '.env'))
 
         if hasattr(self.env_file, 'read'):
             content = self.env_file.read()

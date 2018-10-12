@@ -61,8 +61,6 @@ class ListRoutes(Command):
 
 
 def main():
-    # from uniset.app import app
-    # from uniset import ROOT
     from superset.cli import manager
     manager.add_command('list_routes', ListRoutes())
 

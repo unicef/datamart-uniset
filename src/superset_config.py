@@ -3,7 +3,65 @@
 # ---------------------------------------------------------
 import os
 
-# from uniset.config import env
+# from flask_appbuilder.security.manager import (AUTH_DB, AUTH_LDAP, AUTH_OAUTH,
+#                                                AUTH_OID, AUTH_REMOTE_USER, )
+from uniset.config import env
+
+ADMINS = ('s.apostolico@gmail.com',
+          'sapostolico@unicef.org',
+          )
+# AUTH_TYPE = AUTH_OAUTH
+AUTH_USER_REGISTRATION_ROLE = "Public"
+AUTH_USER_REGISTRATION = True
+
+AUTHORITY_URL = 'https://login.microsoftonline.com/saxix.onmicrosoft.com'
+AUTH_ENDPOINT = '/oauth2/v2.0/authorize'
+TOKEN_ENDPOINT = '/oauth2/v2.0/token'
+REDIRECT_URI = 'http://localhost:8088/login/authorized'
+RESOURCE = 'https://graph.microsoft.com/'
+API_VERSION = 'v1.0'
+SCOPES = ['User.Read']  # Add other scopes/permissions as needed.
+OAUTH_PROVIDERS = [
+    {
+        'name': 'azure',
+        'whitelist': ['@saxix.onmicrosoft.com'],
+        'icon': 'fa-surprise',
+        'token_key': 'access_token',
+        'remote_app': {
+            'base_url': RESOURCE + API_VERSION + '/',
+
+            'request_token_url': None,
+            # 'access_token_method': 'POST',
+            'access_token_url': AUTHORITY_URL + TOKEN_ENDPOINT,
+            'authorize_url': AUTHORITY_URL + AUTH_ENDPOINT,
+            'request_token_params': {
+                'scope': 'user.read openid email profile'
+            },
+            'consumer_key': env.str('KEY1'),
+            'consumer_secret': env.str('SEC1')
+        }
+
+    },
+    {
+        'name': 'google',
+        'whitelist': ['@gmail.com'],
+        'icon': 'fa-google',
+        'token_key': 'access_token',
+        'remote_app': {
+            'base_url': 'https://www.googleapis.com/oauth2/v2/',
+            'request_token_params': {
+                'scope': 'email profile'
+            },
+            'request_token_url': None,
+            'access_token_url': 'https://accounts.google.com/o/oauth2/token',
+            'authorize_url': 'https://accounts.google.com/o/oauth2/auth',
+            'consumer_key': env.str('KK1'),
+            'consumer_secret': env.str('SE1')
+        }
+    }
+]
+
+#
 
 # from uniset.security import UnisetSecurityManager
 # from uniset.security import UnisetSecurityManager
@@ -36,9 +94,9 @@ WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
 # Set this API key to enable Mapbox visualizations
 MAPBOX_API_KEY = ''
 APP_NAME = "UNIset"
-# APP_THEME = "rph.css"
+APP_THEME = "rph.css"
 # APP_THEME = "cyborg.css"       # COOL
-APP_THEME = "spacelab.css"      # NICE
+# APP_THEME = "spacelab.css"  # NICE
 # CUSTOM_SECURITY_MANAGER=UnisetSecurityManager
 # ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 
