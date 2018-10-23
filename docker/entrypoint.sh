@@ -1,47 +1,40 @@
 #!/bin/bash
 
-superset init
-initialized=$?
+mkdir -p /var/uniset/{log,run}
+
+/etc/init.d/redis-server stop
+/etc/init.d/supervisor stop
 
 set -ex
+db-isready --timeout 60
 
-if [ $initialized != 0 ];then
+echo "Initialize the database"
+SUPERSET_UPDATE_PERMS=1 uniset db upgrade
 
-    fabmanager create-admin --app superset \
-                            --username "$ADMIN_USERNAME" \
-                            --password "$ADMIN_PASSWORD" \
-                            --firstname "" \
-                            --lastname "" \
-                            --email "$ADMIN_EMAIL"
+echo "Create default roles and permissions"
+SUPERSET_UPDATE_PERMS=1 uniset init
 
-    cat /etc/datamart.tpl.yaml | sed "s|DATAMART_DATABASE_URL|$DATAMART_DATABASE_URL|" > /etc/datamart.yaml
-    superset import_datasources -p /etc/datamart.yaml
-    # Initialize the database
-    superset db upgrade
-
-    # Create default roles and permissions
-    superset init
-
-fi
+echo "Initialize the database"
+SUPERSET_UPDATE_PERMS=1 uniset db upgrade
 
 
 echo "Command: $1"
 
-if [ "$1" == "uniset" ];then
-    gunicorn -w 2 --timeout 60 -b  0.0.0.0:8088 --limit-request-line 0 --limit-request-field_size 0 uniset.app:app
-elif [ "$1" == "dev" ];then
+if [ "$@" == "uniset" ];then
+    wait-for-it.sh
+    gunicorn    -w $WORKERS \
+                -k gevent \
+                --timeout 60 \
+                -b  0.0.0.0:8088 \
+                --limit-request-line 0 \
+                --limit-request-field_size 0 \
+                uniset.app:app
+elif [ "$@" == "celery" ];then
+    celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair
+elif [ "$@" == "stack" ];then
+    exec supervisord --nodaemon -e DEBUG --config /etc/supervisord.conf
+elif [ "$@" == "dev" ];then
     uniset runserver -d
 else
     exec "$@"
 fi
-#
-#
-#if [ "$#" -ne 0 ]; then
-#    exec "$@"
-#elif [ "$SUPERSET_ENV" = "local" ]; then
-#    superset runserver -d
-#elif [ "$SUPERSET_ENV" = "production" ]; then
-#    superset runserver -a 0.0.0.0 -w $((2 * $(getconf _NPROCESSORS_ONLN) + 1))
-#else
-#    superset --help
-#fi

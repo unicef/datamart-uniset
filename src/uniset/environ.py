@@ -1,7 +1,6 @@
 import logging
 import os
 import re
-import warnings
 
 logger = logging.getLogger(__name__)
 
@@ -9,25 +8,6 @@ logger = logging.getLogger(__name__)
 class ImproperlyConfigured(Exception):
     pass
 
-
-# def _cast(value):
-#     # Safely evaluate an expression node or a string containing a Python
-#     # literal or container display.
-#     # https://docs.python.org/3/library/ast.html#ast.literal_eval
-#     try:
-#         return ast.literal_eval(value)
-#     except ValueError:
-#         return value
-#
-#
-# # return int if possible
-# def _cast_int(v):
-#     return int(v) if hasattr(v, 'isdigit') and v.isdigit() else v
-
-
-# def _cast_urlstr(v):
-#     return unquote_plus(v) if isinstance(v, str) else v
-#
 
 class NoValue(object):
 
@@ -221,9 +201,10 @@ class Env(object):
             with open(self.env_file) as f:
                 content = f.read()
         else:
-            warnings.warn(
-                "%s doesn't exist - if you're not configuring your "
-                "environment separately, create one." % self.env_file)
+            # warnings.warn(
+            #     "%s doesn't exist - if you're not configuring your "
+            #     "environment separately, create one." % self.env_file,
+            #     stacklevel=0)
             content = ''
         logger.debug('Read environment variables from: {0}'.format(self.env_file))
         return content

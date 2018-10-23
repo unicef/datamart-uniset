@@ -9,6 +9,8 @@ from uniset.config import env
 
 ADMINS = ('s.apostolico@gmail.com',
           'sapostolico@unicef.org',
+          'sapostolico@nikunicef.onmicrosoft.com',
+          'da13bd43-4586-444e-a9d1-7e6e96d3126f@noreply.com',
           )
 AUTH_TYPE = AUTH_OAUTH
 AUTH_USER_REGISTRATION_ROLE = "Public"
@@ -37,28 +39,28 @@ OAUTH_PROVIDERS = [
             'request_token_params': {
                 'scope': 'user.read openid email profile'
             },
-            'consumer_key': env.str('KEY2'),
-            'consumer_secret': env.str('SEC2')
+            'consumer_key': env.str('AZURE_CLIENT_ID'),
+            'consumer_secret': env.str('AZURE_CLIENT_SECRET')
         }
 
     },
-    {
-        'name': 'google',
-        'whitelist': ['@gmail.com'],
-        'icon': 'fa-google',
-        'token_key': 'access_token',
-        'remote_app': {
-            'base_url': 'https://www.googleapis.com/oauth2/v2/',
-            'request_token_params': {
-                'scope': 'email profile'
-            },
-            'request_token_url': None,
-            'access_token_url': 'https://accounts.google.com/o/oauth2/token',
-            'authorize_url': 'https://accounts.google.com/o/oauth2/auth',
-            'consumer_key': env.str('KK1'),
-            'consumer_secret': env.str('SE1')
-        }
-    }
+    # {
+    #     'name': 'google',
+    #     'whitelist': ['@gmail.com'],
+    #     'icon': 'fa-google',
+    #     'token_key': 'access_token',
+    #     'remote_app': {
+    #         'base_url': 'https://www.googleapis.com/oauth2/v2/',
+    #         'request_token_params': {
+    #             'scope': 'email profile'
+    #         },
+    #         'request_token_url': None,
+    #         'access_token_url': 'https://accounts.google.com/o/oauth2/token',
+    #         'authorize_url': 'https://accounts.google.com/o/oauth2/auth',
+    #         'consumer_key': env.str('GOOGLE_CLIENT_KEY'),
+    #         'consumer_secret': env.str('GOOGLE_CLIENT_SECRET')
+    #     }
+    # }
 ]
 
 #
@@ -92,18 +94,20 @@ WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
 # Set this API key to enable Mapbox visualizations
 MAPBOX_API_KEY = ''
 APP_NAME = "UNIset"
-APP_THEME = "rph.css"
-# APP_THEME = "cyborg.css"       # COOL
-# APP_THEME = "spacelab.css"  # NICE
+# APP_THEME = "rph.css"
+# APP_THEME = "united.css"       # COOL
+APP_THEME = "simplex.css"  # NICE
 # CUSTOM_SECURITY_MANAGER=UnisetSecurityManager
-# ADDON_MANAGERS = ['uniset.manager.UnisetManager']
+ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 
-# CACHE_CONFIG = {
-#     'CACHE_TYPE': 'redis',
-#     'CACHE_DEFAULT_TIMEOUT': 60 * 60 * 24,  # 1 day default (in secs)
-#     'CACHE_KEY_PREFIX': 'superset_results',
-#     'CACHE_REDIS_URL': 'redis://redis:6379/9',
-# }
+CACHE_CONFIG = {
+    'CACHE_TYPE': 'redis',
+    'CACHE_DEFAULT_TIMEOUT': 60 * 60 * 24,  # 1 day default (in secs)
+    'CACHE_KEY_PREFIX': 'uniset',
+    'CACHE_REDIS_URL': env('CACHE_REDIS_URL'),
+}
+
+
 # MAIL_SERVER = env('MAIL_SERVER')
 # MAIL_PORT = 25,
 # MAIL_USE_TLS = False,
@@ -115,3 +119,13 @@ APP_THEME = "rph.css"
 # MAIL_MAX_EMAILS = '',
 # MAIL_SUPPRESS_SEND = True,
 # MAIL_ASCII_ATTACHMENTS = False
+
+
+class CeleryConfig(object):
+    BROKER_URL = env('CELERY_BROKER_URL')
+    CELERY_IMPORTS = ('superset.sql_lab',)
+    CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+    CELERY_ANNOTATIONS = {'tasks.add': {'rate_limit': '10/s'}}
+
+
+CELERY_CONFIG = CeleryConfig

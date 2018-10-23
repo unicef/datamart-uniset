@@ -5,6 +5,7 @@ DOCKER_IMAGE?=unicef/uniset
 DOCKERFILE?=docker/Dockerfile
 BUILD_OPTIONS?=--squash --compress --rm
 DEVELOP?="0"
+WORKERS?=1
 
 help:
 	@echo 'Options:                                                       '
@@ -30,26 +31,29 @@ help:
 
 
 clean:
-	docker rmi ${DOCKER_IMAGE}
+	docker rmi --force ${DOCKER_IMAGE}:${TARGET}
 
 dev:
 	DEVELOP=1 $(MAKE) build
 
 build:
 	cd .. && docker build ${BUILD_OPTIONS} \
-			--build-arg PIPENV_PYPI_MIRROR=${PIPENV_PYPI_MIRROR} \
+			--build-arg PIPENV_ARGS=--pypi-mirror=${PIPENV_PYPI_MIRROR} \
 			--build-arg DEVELOP=${DEVELOP} \
-			--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
+			--build-arg GITHUB_CREDENTIALS=${GITHUB_TOKEN} \
 			--build-arg VERSION=${TARGET} \
 			--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 			-t ${DOCKER_IMAGE}:${TARGET} \
 			-f ${DOCKERFILE} .
 	@docker images | grep ${DOCKER_IMAGE}
-	@docker inspect --format "{{ index .Config.Labels}}" ${DOCKER_IMAGE}:${TARGET}
-	@docker history ${DOCKER_IMAGE}:${TARGET}
+#	@docker inspect --format "{{ index .Config.Labels}}" ${DOCKER_IMAGE}:${TARGET}
+#	@docker history ${DOCKER_IMAGE}:${TARGET}
 
-run:
-	cd .. && docker run -p 8000:8088 \
+.run:
+	cd .. && docker run \
+			-p 8000:8088 \
+			-p 15000:15000 \
+			-p 5555:5555 \
 			--rm \
 			-e SECRET_KEY=${SECRET_KEY} \
 			-e MAPBOX_API_KEY=${MAPBOX_API_KEY} \
@@ -57,13 +61,21 @@ run:
 			-e ADMIN_USERNAME=${ADMIN_USERNAME} \
 			-e ADMIN_PASSWORD=${ADMIN_PASSWORD} \
 			-e ADMIN_EMAIL=${ADMIN_EMAIL} \
-			-e DATABASE_URL=${DATABASE_URL} \
+			-e AZURE_CLIENT_ID=${AZURE_CLIENT_ID} \
+			-e AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET} \
+			-e CACHE_REDIS_URL=${CACHE_REDIS_URL} \
+			-e CELERY_BROKER_URL=${CELERY_BROKER_URL} \
+			-e CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND} \
+			-e WORKERS=${WORKERS} \
 			--name uniset \
 			-it ${DOCKER_IMAGE}:${TARGET} \
 			${CMD}
 
+run:
+	$(MAKE) .run
+
 test:
-	CMD='django-admin check --deploy' $(MAKE) run
+	CMD='django-admin check --deploy' $(MAKE) .run
 
 stack:
 	CMD='stack' $(MAKE) run

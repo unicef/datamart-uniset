@@ -2,35 +2,41 @@ version: '2'
 services:
   uniset:
     build:
-      context: .
+      context: ./
+      dockerfile: ./docker/Dockerfile
     image: unicef/uniset:dev
-    command: odk
     ports:
-      - "8080:${ODK_PORT}"
-      - "8443:${ODK_PORT_SECURE}"
+      - 8000:8000
     depends_on:
       - db
     links:
       - db
     environment:
-      - ODK_HOSTNAME
-      - ODK_ADMIN_USER=admin
-      - ODK_ADMIN_USERNAME=admin
-      - ODK_AUTH_REALM
-      - ODK_PORT
-      - ODK_PORT_SECURE
-      - DATABASE_URL
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
-      - FLYWAY
-      - ODK
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+      - ADMIN_EMAIL=admin
+
+  redis:
+    image: redis
+
+  celery:
+    image: unicef/uniset:dev
+    command: celery
+    depends_on:
+      - db
+    links:
+      - db
+
   db:
     image: postgres:9.6
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: admin
-      POSTGRES_DB: odk
+      POSTGRES_DB: uniset
+    volumes:
+      - "./~build/volumes/db/data:/var/lib/postgresql/data"
+
   adminer:
     image: adminer
     ports:
-      - 8000:8080
+      - 8080:8080

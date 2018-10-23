@@ -15,8 +15,11 @@
         <meta name="author" content="">
     {% endblock %}
     {% block head_css %}
-        <!-- <link href="{{url_for('appbuilder.static',filename='css/bootstrap.min.css')}}" rel="stylesheet"> -->
+         <link href="{{url_for('appbuilder.static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{url_for('appbuilder.static',filename='css/font-awesome.min.css')}}" rel="stylesheet">
+        {% if appbuilder.app_theme %}
+           <link href="{{url_for('appbuilder.static',filename='css/themes/'+ appbuilder.app_theme )}}"  rel="stylesheet">
+        {% endif %}
 
          <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
          <!--[if lt IE 9]>
@@ -38,6 +41,8 @@
         <script src="{{url_for('appbuilder.static',filename='js/ab_filters.js')}}"></script>
         <script src="{{url_for('appbuilder.static',filename='js/ab_actions.js')}}"></script>
     {% endblock %}
+    <link href="{{url_for('uniset.static',filename='css/themes/uniset.css')}}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -50,7 +55,7 @@
     <script src="{{url_for('appbuilder.static',filename='datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{url_for('appbuilder.static',filename='select2/select2.js')}}"></script>
     <script src="{{url_for('appbuilder.static',filename='js/ab.js')}}"></script>
-    <script src="/static/uniset/js/test_include.js"></script>
+    <!--<script src="/static/uniset/js/test_include.js"></script>-->
 {% endblock %}
 
 {% block add_tail_js %}

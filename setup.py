@@ -26,7 +26,7 @@ setup(
     url='https://github.com/unicef/uniset/',
     package_dir={'': 'src'},
     packages=find_packages('src'),
-
+    py_modules=['superset_config'],
     entry_points={
         'console_scripts': [
             'uniset = uniset.bin.cli:main',
