@@ -4,6 +4,7 @@ from urllib.parse import unquote
 
 import click
 from colorama import Fore, Style
+
 from flask import url_for
 from flask.cli import FlaskGroup
 from superset.cli import app, create_app
@@ -39,17 +40,17 @@ def version(verbose):
 @app.cli.command()
 @click.pass_context
 def check(ctx):
-    result = ctx.invoke(version, verbose=False)
+    ctx.invoke(version, verbose=False)
     try:
-        import superset_config
+        import superset_config  # noqa
 
         from superset import app
         assert app.config
         assert app.config.get('APP_NAME') == 'uniset'
         assert app.config.get('AUTH_TYPE') == 4
         print("Uniset configuration...OK")
-    except Exception as e:
-        print(f"Unable to load uniset configuration")
+    except Exception:
+        print("Unable to load uniset configuration")
         sys.exit(1)
 
     try:

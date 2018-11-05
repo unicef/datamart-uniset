@@ -1,6 +1,6 @@
 import logging
 
-from superset import appbuilder, SupersetSecurityManager
+from superset import SupersetSecurityManager, appbuilder
 
 from uniset.azure.jwt import _azure_jwt_token_parse
 
