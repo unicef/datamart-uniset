@@ -1,3 +1,8 @@
+0.3 (dev)
+---------
+* add `check` command
+
+
 0.2
 ---
 * update superset 0.28.1
