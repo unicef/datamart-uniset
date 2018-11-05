@@ -4,13 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-superset = "==0.27.0"
-click = "==6.7"
-markdown = "==2.6.11"
+superset = ">0.27"
+#click = "==6.7"
+#markdown = "==2.6.11"
 "psycopg2-binary" = "*"
-colorama = "==0.3.9"
+#colorama = "==0.3.9"
+flask-appbuilder = "==1.12.1"
 flask-oauthlib = "*"
-mysqlclient = "*"
+#mysqlclient = "*"
 redis = "*"
 gevent = "*"
 

@@ -2,11 +2,10 @@ from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_appbuilder.forms import DynamicForm
 from flask_babel import lazy_gettext as _
 from flask_wtf.file import FileAllowed, FileRequired
-from wtforms import FileField, StringField
-from wtforms.validators import DataRequired
-
 from superset import db
 from superset.models import core as models
+from wtforms import FileField, StringField
+from wtforms.validators import DataRequired
 
 
 class LoadSQLForm(DynamicForm):

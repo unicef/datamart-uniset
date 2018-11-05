@@ -5,23 +5,22 @@ mkdir -p /var/uniset/{log,run}
 /etc/init.d/redis-server stop
 /etc/init.d/supervisor stop
 
-set -ex
-db-isready --timeout 60
-
-echo "Initialize the database"
-SUPERSET_UPDATE_PERMS=1 uniset db upgrade
-
-echo "Create default roles and permissions"
-SUPERSET_UPDATE_PERMS=1 uniset init
-
-echo "Initialize the database"
-SUPERSET_UPDATE_PERMS=1 uniset db upgrade
-
-
 echo "Command: $1"
 
 if [ "$@" == "uniset" ];then
-    wait-for-it.sh
+
+    set -ex
+    db-isready --timeout 60
+
+    echo "Initialize the database"
+    SUPERSET_UPDATE_PERMS=1 uniset db upgrade
+
+    echo "Create default roles and permissions"
+    SUPERSET_UPDATE_PERMS=1 uniset init
+
+    echo "Initialize the database"
+    SUPERSET_UPDATE_PERMS=1 uniset db upgrade
+
     gunicorn    -w $WORKERS \
                 -k gevent \
                 --timeout 60 \

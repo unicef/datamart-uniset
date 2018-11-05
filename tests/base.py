@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Unit tests for Superset"""
-from __future__ import (absolute_import, division,
-                        print_function, unicode_literals,)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import json
 import logging
@@ -9,7 +8,6 @@ import os
 import unittest
 
 from flask_appbuilder.security.sqla import models as ab_models
-
 from superset import app, cli, db, security_manager, utils
 from superset.connectors.druid.models import DruidCluster, DruidDatasource
 from superset.connectors.sqla.models import SqlaTable

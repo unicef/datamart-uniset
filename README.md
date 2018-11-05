@@ -14,7 +14,7 @@ Extras
 
 - ability to load users from UNICEF AD and grant them specif roles, without force them to login
 - Login using Organization's Active Directory
-
+- Auto creation of admins if listed in ADMINS config list 
 
 
 ##### TODO:
@@ -22,26 +22,12 @@ Extras
 - Send email to user to with account/granted privileges informations
 - Merging existing records with oauth accounts 
 
-Quickstart
-----------
-
-    createdb uniset
-    uniset db upgrade
-    fabmanager create-admin \
-            --app superset \
-            --username "admin" \
-            --password <PASSWORD> \
-            --firstname "" \
-            --lastname "" \
-            --email <EMAIL>
-    uniset runserver -d
-
 
 Warning Notes
 -------------
 
-Stable [superset] version (0.27 at time of writing) does not support Azure OAuth.
-Due a bug in Superset is not possible to custmise appbuilded.SecurityManager.
+Stable [superset] version (0.28.1 at time of writing) contaions a bug that prevent
+to override default SecurityManager
 
 To enable UNICEF Azure integration, some monkeypatches need to be applied during 
 Flask initialization (see `uniset.monkeypatch`)
@@ -53,7 +39,6 @@ must be used with gunicorn instead of the classical `superset`
 
 Most of those bugs have been resolved, and will be released in the next versions of relative packages,
 when them will be officially released, related monkeypatches will be removed.
-
 
 [superset]:https://superset.incubator.apache.org/
 [flask_appbuilder]:https://secure.travis-ci.org/bitcaster-io/bitcaster.png?branch=develop

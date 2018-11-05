@@ -48,9 +48,9 @@ class SyncResult:
 
     def __eq__(self, other):
         if isinstance(other, SyncResult):
-            return (self.created == other.created and
-                    self.updated == other.updated and
-                    self.skipped == other.skipped)
+            return (self.created == other.created
+                    and self.updated == other.updated
+                    and self.skipped == other.skipped)
         return False
 
 
@@ -165,10 +165,9 @@ class Synchronizer:
         return self.syncronize(max_records)
 
     def is_valid(self, user_info):
-        return (user_info.get('email') and
-                user_info.get('first_name') and
-                user_info.get('last_name') and
-                'noreply' not in user_info.get('email'))
+        return (user_info.get('email') and user_info.get('first_name')
+                and user_info.get('last_name')
+                and 'noreply' not in user_info.get('email'))
 
     def _store(self, pk, values):
         """ :return  created """

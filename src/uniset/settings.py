@@ -1,8 +1,7 @@
 from uniset.environ import Env
 
 DEFAULTS = dict(
-    GOOGLE_CLIENT_ID="",
-    GOOGLE_CLIENT_SECRET="",
+    AUTHORITY_URL='unicef.org',
     AZURE_CLIENT_ID="",
     AZURE_CLIENT_SECRET="",
 
@@ -10,18 +9,19 @@ DEFAULTS = dict(
 
     CELERY_BROKER_URL='redis://127.0.0.1:6379/0',
     CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/0',
+    MAPBOX_API_KEY='',
 
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=25,
-    MAIL_USE_TLS=False,
-    MAIL_USE_SSL=False,
-    MAIL_DEBUG=False,
+    MAIL_USE_TLS=(bool, False),
+    MAIL_USE_SSL=(bool, False),
+    MAIL_DEBUG=(bool, False),
     MAIL_USERNAME='',
     MAIL_PASSWORD='',
     MAIL_DEFAULT_SENDER='',
     MAIL_MAX_EMAILS='',
-    MAIL_SUPPRESS_SEND=True,
-    MAIL_ASCII_ATTACHMENTS=False
+    MAIL_SUPPRESS_SEND=(bool, True),
+    MAIL_ASCII_ATTACHMENTS=(bool, False)
 )
 
 env = Env(defaults=DEFAULTS)

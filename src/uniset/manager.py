@@ -1,9 +1,8 @@
 import logging
 import os
 
-from flask_appbuilder.basemanager import BaseManager
-
 from flask import Blueprint
+from flask_appbuilder.basemanager import BaseManager
 
 from uniset import ROOT
 
@@ -25,7 +24,7 @@ class UnisetManager(BaseManager):
         self.appbuilder.get_app.register_blueprint(bp)
 
         from uniset.jinja import context_processors  # noqa
-        from uniset.views.users import LoadUserView, UserProfileView
+        from uniset.views.users import LoadUserView
 
         self.appbuilder.add_separator('Security')
 
@@ -35,11 +34,11 @@ class UnisetManager(BaseManager):
                                  category="Security",
                                  category_icon="fa-envelope")
 
-        self.appbuilder.add_view(UserProfileView,
-                                 "User profiles",
-                                 icon="fa-user-circle",
-                                 category="Security",
-                                 category_icon="fa-cloud-download-alt")
+        # self.appbuilder.add_view(UserProfileView,
+        #                          "User profiles",
+        #                          icon="fa-user-circle",
+        #                          category="Security",
+        #                          category_icon="fa-cloud-download-alt")
 
         from .monkeypatch import patcher
         patcher.patch2(self.appbuilder)

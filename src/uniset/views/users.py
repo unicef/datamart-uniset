@@ -1,14 +1,12 @@
-from flask_appbuilder import ModelView, SimpleFormView, expose, has_access
-from flask_appbuilder.fieldwidgets import (BS3TextAreaFieldWidget,
-                                           Select2AJAXWidget,)
+from flask import flash
+from flask_appbuilder import expose, has_access, ModelView, SimpleFormView
+from flask_appbuilder.fieldwidgets import BS3TextAreaFieldWidget, Select2AJAXWidget
 from flask_appbuilder.forms import DynamicForm
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder.security.sqla.models import Role
 from flask_babel import lazy_gettext as _
-from wtforms import StringField, validators
-
-from flask import flash
 from superset import db
+from wtforms import StringField, validators
 
 from uniset.models import UserProfile
 
