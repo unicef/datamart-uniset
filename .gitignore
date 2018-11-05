@@ -5,3 +5,5 @@ dist/
 uniset.egg-info
 ~build
 !.env.tpl
+!.pre-commit-config.yaml
+!.gitignore
