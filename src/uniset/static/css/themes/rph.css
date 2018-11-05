@@ -1,0 +1,872 @@
+/*
+ * IMPORT
+ * Google Fonts
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Titillium+Web:400,600,700');
+
+/*
+ * VARIABLES
+ * These are available globally
+ */
+:root {
+  --color-pink: #D44673;
+  --color-navy: #324955;
+  --color-teal: #53BDA6;
+  --color-beige: #DCE4D7;
+  --color-green: #0cosmo0A699;
+  --color-beige-dark: #9FB9B4;
+  --color-yellow-light: #F1F3EF;
+  --color-yellow: #EAF0E6;
+  --color-gray: #818181;
+  --color-gray-light: #C5C5C5;
+
+  --color-primary: #1E90FF; /* Bright color for buttons, links, etc */
+  --color-secondary: #114d89; /* Muted color for text in some areas */
+  --color-background: rgba(30, 144, 255, 0.24); /* Background color of application */
+
+  --header-font: 'Titillium Web', Helvetica, sans-serif;
+  --body-font: 'Open Sans', Helvetica, sans-serif;
+  --weight-bold: 700;
+}
+
+/*
+ * BASE
+ * Global styles, layout styles
+ */
+body {
+  background-color: var(--color-background);
+  font-family: var(--body-font);
+  color: var(--color-secondary);
+}
+
+.container {
+  margin-bottom: 3rem;
+  padding: 0 20px;
+}
+
+.loading-gif {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 50px;
+  opacity: 0.5;
+}
+
+/*
+ * LINKS & BUTTONS
+ */
+body a {
+  color: var(--color-secondary);
+}
+
+td a {
+  text-decoration: underline;
+}
+
+td a:hover {
+  text-decoration: none;
+}
+
+/* Buttons */
+a.btn-primary,
+input.btn-primary,
+button.btn-primary {
+  border: none;
+  background-color: var(--color-primary);
+}
+
+a.btn-primary:hover,
+input.btn-primary:hover,
+button.btn-primary:hover {
+  background: var(--color-primary);
+  color: #F3F3F3;
+}
+
+button.close {
+  color: var(--color-secondary);
+}
+
+button.close:hover {
+  color: #000;
+}
+
+.btn-default {
+  border: 1px solid var(--color-beige);
+}
+
+/*
+ * TYPOGRAPHY
+ */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--header-font);
+  font-weight: var(--weight-bold);
+}
+
+/*
+ * FORMS
+ */
+body .help-block {
+  color: #494949;
+}
+
+/* Helps reset select2 styles to match other forms */
+.form-control,
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.form-group .input-group-addon {
+  border-color: #B6C9C5;
+  border-radius: 0;
+}
+
+.form-control:focus {
+  border-color: #9FB9B4;
+}
+
+/* Labels on forms */
+.form-group label {
+  font-family: 'Titillium Web', Helvetica, sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #5A7C81;
+  letter-spacing: 0.05rem;
+}
+
+.form-group .input-group-addon {
+  background-color: #F1F5F4;
+  color: #324955;
+}
+
+/*
+ * NAVBAR
+ * The header
+ */
+.navbar-brand {
+  width: 130px;
+}
+
+.navbar-brand img {
+  width: 100%;
+}
+
+.navbar-inverse {
+  border: none;
+}
+
+.navbar-header .navbar-toggle {
+  margin-top: 28px;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background: var(--color-yellow);
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #000;
+}
+
+.navbar-header .navbar-collapse {
+  padding-top: 0;
+}
+
+/* Links in the navbar */
+.navbar-nav > li > a {
+  font-family: var(--header-font);
+  display: flex;
+  align-items: center;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background: var(--color-yellow);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li.active > a {
+  margin-bottom: 0;
+  box-shadow: inset 0 -3px 0 var(--color-primary);
+  border: none;
+}
+
+/* Fixes alignment of flag. TODO: Double check other flags */
+.navbar-nav .f16 .flag {
+  vertical-align: middle;
+}
+
+/*
+ * DROPDOWNS
+ */
+.dropdown-menu {
+  border-color: var(--color-gray-light) !important;
+}
+
+/* Links in dropdown */
+.dropdown-menu > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background: var(--color-primary);
+}
+
+.dropdown-menu > li > a:hover .fa,
+.dropdown-menu > li > a:focus .fa {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.dropdown-menu > li > a {
+  padding-right: 16px;
+  padding-left: 16px;
+  color: #000;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa,
+.dropdown-menu > li > a .fa {
+  margin-right: 0.5rem;
+  font-size: 1.05rem;
+  opacity: 0.75;
+}
+
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--color-secondary);
+}
+
+.dropdown-toggle.btn .caret {
+  margin-top: -24px;
+}
+
+/*
+ * TABS, PANES, PANELS
+ */
+.tab-content > .tab-pane {
+  border: 1px solid var(--color-beige);
+  border-top: none;
+  border-color: #DCE4D7;
+  border-radius: 2px;
+}
+
+.tab-pane .panel  {
+  border: none;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid var(--color-beige);
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border: 1px solid var(--color-beige);
+  border-top: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+  border-bottom-color: transparent;
+}
+
+.nav-tabs > li:not(.active) > a {
+  border-radius: 3px;
+}
+
+.nav-tabs > li > a {
+  border: none;
+  color: var(--color-secondary);
+}
+
+.nav-tabs > li > a:hover {
+  border: none;
+  background: var(--color-secondary);
+  color: #FFF;
+}
+
+.nav-tabs > li > a:hover .caret {
+  color: #FFF;
+}
+
+/* Panels */
+.panel {
+  margin-bottom: 0;
+  box-shadow: none;
+  border: 1px solid #DCE4D7;
+}
+
+.panel b {
+  margin: 0;
+  width: 100%;
+}
+
+.panel .tab-pane .panel-title {
+  padding: 1rem;
+  background: var(--color-beige);
+}
+
+.panel .tab-pane .panel {
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+}
+
+div.widget .chart-header {
+  margin-right: 0;
+  margin-left: 0;
+  padding: 4px 10px 2px;
+  border-bottom: none;
+}
+
+.panel-primary .panel-heading {
+  padding: 0;
+}
+
+.panel-primary .panel-title {
+  margin: 0;
+  padding: 1.5rem;
+  border-bottom: none;
+  font-family: var(--header-font);
+  font-size: 18px;
+  font-weight: var(--weight-bold);
+  color: var(--color-secondary);
+}
+
+.panel-title .caret {
+  display: inline-block;
+  margin-top: -32px;
+  color: var(--color-secondary);
+  opacity: 0.75;
+}
+
+.panel-body {
+  padding: 1.5rem;
+}
+
+.panel-body h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.panel-group {
+  margin-bottom: 0;
+}
+
+.panel-group .panel-body {
+  padding: 0;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top: none;
+}
+
+.panel-heading + .nav-tabs,
+.panel-heading + .nav-tabs + .tab-content {
+  margin: 0 2rem;
+}
+
+.panel-heading + .nav-tabs + .tab-content .table-responsive {
+  padding: 1rem 0 !important;
+}
+
+.panel-heading + .tab-pane {
+  border: none;
+}
+
+/* Visually making the well appear outside the container */
+.panel-group:not(#accordion1) + .well {
+  position: relative;
+  top: 2rem;
+  margin: 0 -1rem -4rem -1rem;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.panel-heading + .nav-tabs + .tab-content .table-responsive + .well {
+  margin: 0 -42px -42px -42px;
+}
+
+.panel-group + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
+}
+
+.panel-heading + .nav-tabs + .tab-content .tab-pane {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.panel#Home  {
+  padding: 0 !important;
+}
+
+.accordion-toggle + .caret {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  width: 30px;
+  height: 10px;
+  border: none;
+  line-height: 1;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.accordion-toggle + .caret:before {
+  position: absolute;
+  top: -3px;
+  right: 0;
+  left: 0;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Caret turns upside down when opened/closed */
+.accordion-toggle.collapsed + .caret {
+  line-height: 1.5;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/*
+ * TABLES
+ * Updates the layout table colors/borders
+ */
+.table {
+  margin-bottom: 0;
+}
+
+.table .success {
+  color: var(--color-secondary);
+}
+
+.table > tbody + tbody,
+.table > tbody > tr > td,
+.table > thead > tr > th {
+  border-color: var(--color-beige);
+}
+
+/* Setting background color for rows */
+table > thead > tr > td.success,
+.table > tbody > tr > td.success,
+.table > tfoot > tr > td.success,
+.table > thead > tr > th.success,
+.table > tbody > tr > th.success,
+.table > tfoot > tr > th.success,
+.table > thead > tr.success > td,
+.table > tbody > tr.success > td,
+.table > tfoot > tr.success > td,
+.table > thead > tr.success > th,
+.table > tbody > tr.success > th,
+.table > tfoot > tr.success > th {
+  background-color: var(--color-beige);
+  color: var(--color-secondary);
+}
+
+table > thead > tr > td.success a,
+.table > tbody > tr > td.success a,
+.table > tfoot > tr > td.success a,
+.table > thead > tr > th.success a,
+.table > tbody > tr > th.success a,
+.table > tfoot > tr > th.success a,
+.table > thead > tr.success > td a,
+.table > tbody > tr.success > td a,
+.table > tfoot > tr.success > td a,
+.table > thead > tr.success > th a,
+.table > tbody > tr.success > th a,
+.table > tfoot > tr.success > th a {
+  color: var(--color-secondary);
+}
+
+.table-hover > tbody > tr:hover {
+  background: var(--color-yellow);
+}
+
+.table-hover > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > th.success:hover,
+.table-hover > tbody > tr.success:hover > td,
+.table-hover > tbody > tr:hover > .success,
+.table-hover > tbody > tr.success:hover > th {
+  background-color: var(--color-beige-dark);
+}
+
+.table-simple {
+  border: none;
+}
+
+.table-simple > thead > tr > th,
+.table-simple > tbody > tr > th,
+.table-simple > tfoot > tr > th,
+.table-simple > thead > tr > td,
+.table-simple > tbody > tr > td,
+.table-simple > tfoot > tr > td {
+  padding: 2rem 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px solid #EAF0E6;
+  border-left: none;
+}
+
+.table-simple > thead > tr:last-child > th,
+.table-simple > tbody > tr:last-child > th,
+.table-simple > tfoot > tr:last-child > th,
+.table-simple > thead > tr:last-child > td,
+.table-simple > tbody > tr:last-child > td,
+.table-simple > tfoot > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* Helper text in tables */
+.table .help-block {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.table .help-block:empty {
+  display: none;
+}
+
+.table thead .fa {
+  position: relative;
+  top: 2px;
+  color: var(--color-teal); /* For consistency */
+}
+
+.table tr:empty {
+  display: none;
+}
+
+.table td .alert {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.panel-body .table-responsive {
+  padding: 0;
+}
+
+form .table-responsive {
+  padding: 0 2rem !important;
+}
+
+/* Visually making the well appear outside the container */
+.table-responsive + .well {
+  margin: 1.5rem -1px -1px -1px;
+  padding-right: 0;
+  padding-left: 0;
+  box-shadow: none;
+  border: none;
+  border-top: 1px solid #DCE4D7;
+  border-radius: 0;
+  background: #F1F3EF;
+}
+
+.table-responsive + .well > button[type=submit] {
+  float: right;
+}
+
+/*
+ * LIST
+ * List containers, with filters
+ */
+.list-search-container .btn.dropdown-toggle {
+  position: absolute;
+  top: -48px;
+  right: -1rem;
+  background-color: transparent;
+  font-size: 12px;
+  color: var(--color-secondary);
+}
+
+.list-container.panel-body {
+  border: none;
+}
+
+.list-container .list-add-action {
+  position: relative;
+  top: 4px;
+  left: 0;
+}
+
+.list-add-action .btn.btn-sm {
+  margin-bottom: 1rem;
+  padding: 5px 10px;
+  box-shadow: none;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.list-add-action .btn.btn-sm:after {
+  content: attr(data-original-title);
+}
+
+.list-container .list-add-action.without-count {
+  position: absolute;
+  top: -35px;
+  right: 15px;
+  left: auto;
+}
+
+.list-container .form-actions-container {
+  display: block;
+  float: left;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  padding: 0;
+  padding-left: 0;
+  width: 50%;
+}
+
+.list-container .pagination-container .pagination {
+  margin: 1rem 0;
+}
+
+.list-container .pagination-container {
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  padding-right: 0;
+  padding-bottom: 0;
+  font-size: 1.25rem;
+}
+
+/* Filters */
+.filters {
+  background-color: var(--color-background);
+}
+
+.filters .remove-filter {
+  background: white;
+  text-decoration: none;
+}
+
+.filters .remove-filter .close-icon {
+  margin-right: 10px;
+  opacity: 0.75;
+}
+
+.select2-container .select2-choice {
+  padding: 5px 5px;
+  height: 42px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  top: 7px;
+}
+
+.list-container .filter-action {
+  margin: 0 0 3rem 0;
+  padding: 1rem;
+  background-color: var(--color-background);
+}
+
+.list-container .filters-container table tr:last-child td {
+  border: none;
+}
+
+.list-container .filters td input[type=checkbox] {
+  margin-top: 13px;
+}
+
+.list-container .table-bordered > thead > tr > th,
+.list-container .table-bordered > tbody > tr > th,
+.list-container .table-bordered > tfoot > tr > th,
+.list-container .table-bordered > thead > tr > td,
+.list-container .table-bordered > tbody > tr > td,
+.list-container .table-bordered > tfoot > tr > td,
+.list-container .table-bordered,
+.list-container .panel-body.list-container {
+  padding: 8px;
+  border: 1px solid var(--color-beige);
+}
+
+/*
+ * ICONS
+ * "fancy icons"
+ */
+.nav-tabs > li > a .fa,
+.panel-body p > .fa,
+.sql-toolbar .btn .fa,
+.panel-group + .well .btn-primary .fa,
+.list-add-action .btn.btn-sm .fa,
+.table-responsive + .well > button[type=submit] .fa {
+  margin-right: 0.5rem;
+  font-size: 1.05rem;
+  opacity: 0.75;
+}
+
+/* icons on the right */
+.table-responsive + .well > button[type=submit] .fa {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/*
+ * LOGIN SCREEN
+ */
+#loginbox .help-block {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/*
+ * SQL LAB SCREEN
+ */
+#a11y-query-editor-tabs .nav-tabs .dropdown-toggle.btn .caret {
+  margin-top: -26px;
+  margin-left: -10px;
+  opacity: 0.75;
+}
+
+#a11y-query-editor-tabs .SouthPane .tab-content {
+  padding-top: 0;
+}
+
+#a11y-query-editor-tabs .panel .SouthPane .tab-pane {
+  padding: 1rem;
+}
+
+#a11y-query-editor-tabs .fa-plus-circle:before {
+  content: "\f067";
+  font-size: 1.25rem;
+}
+
+.ResultSetControls {
+  padding-bottom: 10px !important;
+}
+
+.ResultSetControls .btn-group .btn:first-child {
+  font-weight: bold;
+  background-color: var(--color-yellow);
+  color: var(--color-secondary);
+}
+
+/*
+ * DASHBOARD SCREEN
+ */
+.fave-unfave-icon .fa {
+  margin-left: 1rem;
+  color: var(--color-primary);
+}
+
+.editable-title,
+.editable-title button,
+.editable-title [type="button"] {
+  font-family: var(--header-font);
+}
+
+.editable-title input {
+  padding-left: 0;
+}
+
+.editable-title input[type="button"] {
+  padding-left: 0;
+}
+
+.dataTables_scroll {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.slice-cell-highlight {
+  box-shadow: 0 0 20px 5px rgba(0,0,0,0.05) !important;
+}
+
+.table-responsive + .well .btn-primary {
+  float: right;
+  margin-left: 1rem;
+}
+
+/*
+ * CHARTS SCREEN
+ */
+#explore-container,
+.scrollbar-container,
+.scrollbar-content {
+  position: relative !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/*
+ * VARIOUS REACT COMPONENTS
+ */
+.reactable-header-sortable::before {
+  top: 12px;
+  color: var(--color-teal);
+}
+
+.react-gravatar.img-rounded {
+  border-radius: 2px !important;
+}
+
+/*
+ * SHIMS
+ */
+body .navbar > .container-fluid > .navbar-brand,
+body .navbar .navbar-collapse .navbar-brand {
+  display: none;
+}
+
+/*
+ * RESPONSIVE STYLES & BREAKPOINTS
+ */
+
+/* Tablets and up */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .list-container .pagination-container .pagination {
+    margin: 0;
+  }
+}
+
+/* Tablet to Desktop */
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-inverse .navbar-nav > li > a,
+  .dropdown-menu > li > a {
+    font-size: 1.25rem;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a .fa,
+  .dropdown-menu > li > a .fa {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+  }
+
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    width: 35px;
+  }
+}
+
+/*  Desktop and up */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    padding-top: 26px;
+  }
+
+  .navbar-header {
+    height: 80px;
+  }
+
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: -5px;
+    width: 135px;
+  }
+}

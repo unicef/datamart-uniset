@@ -1,0 +1,34 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+superset = ">0.27"
+#click = "==6.7"
+#markdown = "==2.6.11"
+"psycopg2-binary" = "*"
+#colorama = "==0.3.9"
+flask-appbuilder = "==1.12.1"
+flask-oauthlib = "*"
+#mysqlclient = "*"
+redis = "*"
+gevent = "*"
+
+[dev-packages]
+ipython="*"
+pdbpp="*"
+pre-commit = "*"
+pytest-cov = "*"
+pytest-pythonpath = "*"
+pytest="*"
+vcrpy = "*"
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+clean = "rm -fr ~build dist .pytest_cache"
+fullclean = "pipenv run clean && rm -fr .tox"
+run = "gunicorn -w 2 --timeout 60 -b  0.0.0.0:8088 --limit-request-line 0 --limit-request-field_size 0 uniset.app:app"
+dev = "uniset runserver -d"

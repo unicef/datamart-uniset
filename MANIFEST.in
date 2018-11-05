@@ -1,0 +1,18 @@
+include README.md
+include MANIFEST.in
+include LICENSE
+include *.py
+include tox.ini
+include pytest.ini
+
+recursive-include src *.py
+recursive-include src *.html
+recursive-include src *.css
+recursive-include src *.js
+recursive-include src *.png
+recursive-include src *.svg
+
+prune tests
+
+exclude .DS_Store
+exclude tox.ini

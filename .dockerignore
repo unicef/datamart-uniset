@@ -1,0 +1,11 @@
+**
+!src
+!Pipfile
+!Pipfile.lock
+!setup.py
+!README.md
+!docker/entrypoint.sh
+!docker/supervisord.conf
+!docker/redis.conf
+!docker/db-isready.py
+!docker/wait-for-it.sh

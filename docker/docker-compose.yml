@@ -1,0 +1,42 @@
+version: '2'
+services:
+  uniset:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    image: unicef/uniset:dev
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+      - ADMIN_EMAIL=admin
+
+  redis:
+    image: redis
+
+  celery:
+    image: unicef/uniset:dev
+    command: celery
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: uniset
+    volumes:
+      - "./~build/volumes/db/data:/var/lib/postgresql/data"
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
