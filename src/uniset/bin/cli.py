@@ -1,3 +1,4 @@
+import sys
 import warnings
 from urllib.parse import unquote
 
@@ -36,12 +37,40 @@ def version(verbose):
 
 
 @app.cli.command()
+@click.pass_context
+def check(ctx):
+    result = ctx.invoke(version, verbose=False)
+    try:
+        import superset_config
+
+        from superset import app
+        assert app.config
+        assert app.config.get('APP_NAME') == 'uniset'
+        assert app.config.get('AUTH_TYPE') == 4
+        print("Uniset configuration...OK")
+    except Exception as e:
+        print(f"Unable to load uniset configuration")
+        sys.exit(1)
+
+    try:
+        from superset import appbuilder
+        assert appbuilder.sm.auth_user_oauth.patched
+        print("SecurityManager patch...OK")
+    except (AssertionError, AttributeError):
+        print("SecurityManager not patched")
+        sys.exit(1)
+    try:
+        from flask_appbuilder import base
+        assert base.dynamic_class_import.patched
+        print("dynamic_class_import patch...OK")
+    except (AssertionError, AttributeError):
+        print("flask_appbuilder.base.dynamic_class_import not patched")
+        sys.exit(1)
+
+
+@app.cli.command()
 @click.option('--short', '-s', is_flag=True, help='shorten output')
 def list_routes(short):
-    # class ListRoutes(Command):
-    #     option_list = [Option('-s', '--short', action='store_true', help='shorten output')]
-    #
-    #     def run(self, short):
     from uniset.app import app
     output = []
     for rule in app.url_map.iter_rules():
@@ -61,15 +90,6 @@ def list_routes(short):
 
     for line in sorted(output):
         print(line)
-
-
-#
-# def main():
-#     from superset.cli import manager
-#     from uniset.app import app  # noqa - Load uniset extras
-#     manager.add_command('list_routes', ListRoutes())
-#
-#     manager.run()
 
 
 @click.group(cls=FlaskGroup, create_app=create_app)

@@ -14,6 +14,7 @@ ADMINS = ('s.apostolico@gmail.com',
           'da13bd43-4586-444e-a9d1-7e6e96d3126f@noreply.com',
           '94501d3a-8346-4872-948c-82bce9e514b4@noreply.com',
           )
+
 AUTH_TYPE = AUTH_OAUTH
 AUTH_USER_REGISTRATION_ROLE = "Public"
 AUTH_USER_REGISTRATION = True
@@ -96,7 +97,7 @@ SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 # # Set this API key to enable Mapbox visualizations
 MAPBOX_API_KEY = env('MAPBOX_API_KEY')
 
-APP_NAME = "UNIset"
+APP_NAME = "uniset"
 # # APP_THEME = "rph.css"
 # # APP_THEME = "united.css"       # COOL
 # APP_THEME = "simplex.css"  # NICE
@@ -123,12 +124,12 @@ MAIL_MAX_EMAILS = env('MAIL_MAX_EMAILS')
 MAIL_SUPPRESS_SEND = env('MAIL_SUPPRESS_SEND')
 MAIL_ASCII_ATTACHMENTS = env('MAIL_ASCII_ATTACHMENTS')
 
-#
-# class CeleryConfig(object):
-#     BROKER_URL = env('CELERY_BROKER_URL')
-#     CELERY_IMPORTS = ('superset.sql_lab',)
-#     CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
-#     CELERY_ANNOTATIONS = {'tasks.add': {'rate_limit': '10/s'}}
-#
-#
-# CELERY_CONFIG = CeleryConfig
+
+class CeleryConfig(object):
+    BROKER_URL = env('CELERY_BROKER_URL')
+    CELERY_IMPORTS = ('superset.sql_lab',)
+    CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+    CELERY_ANNOTATIONS = {'tasks.add': {'rate_limit': '10/s'}}
+
+
+CELERY_CONFIG = CeleryConfig

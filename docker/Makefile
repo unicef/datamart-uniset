@@ -75,7 +75,7 @@ run:
 	$(MAKE) .run
 
 test:
-	CMD='django-admin check --deploy' $(MAKE) .run
+	CMD='uniset check' $(MAKE) .run
 
 stack:
 	CMD='stack' $(MAKE) run

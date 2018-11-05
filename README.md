@@ -22,6 +22,9 @@ Extras
 - Send email to user to with account/granted privileges informations
 - Merging existing records with oauth accounts 
 
+Quickstart
+----------
+
 
 Warning Notes
 -------------
