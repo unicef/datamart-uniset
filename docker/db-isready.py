@@ -30,11 +30,11 @@ def main():
         type=int,
         help='sleep time between attempt',
     )
-    parser.add_argument(
-        '--wait', default=False,
-        action="store_true",
-        help='wait until database is available',
-    )
+    # parser.add_argument(
+    #     '--wait', default=False,
+    #     action="store_true",
+    #     help='wait until database is available',
+    # )
     parser.add_argument(
         '--debug', default=False,
         action="store_true",
@@ -52,27 +52,26 @@ def main():
     )
     args = parser.parse_args()
     url = urllib.parse.urlparse(args.connection_url)
-    if url.scheme == 'postgres':
-        import psycopg2
-        conn = psycopg2.connect(host=url.hostname,
-                                port=url.port,
-                                user=url.username,
-                                password=url.password,
-                                database=url.path[1:])
-    else:
-        raise Exception("Database not supported")
-
     elapsed = 0
     retcode = 1
+    if url.scheme == 'postgres':
+        import psycopg2
+    else:
+        raise Exception("Database not supported")
     try:
         sys.stdout.write(f"Checking connnection {url.hostname}:{url.port}...\n")
 
         while True:
             try:
+                conn = psycopg2.connect(host=url.hostname,
+                                    port=url.port,
+                                    user=url.username,
+                                    password=url.password,
+                                    database=url.path[1:])
                 conn = conn.cursor()
             except Exception as e:
-                if args.wait and elapsed < args.timeout:
-                    sys.stdout.write("." * elapsed, ending='\r')
+                if elapsed < args.timeout:
+                    sys.stdout.write("." * elapsed)
                     sys.stdout.flush()
                     time.sleep(args.sleep)
                     elapsed += 1

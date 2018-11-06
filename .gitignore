@@ -1,8 +1,8 @@
-.venv
-.tox
 dist/
 uniset.egg-info
 ~build
-
-.env
-.coverage
+.*
+!.circleci
+!.env.tpl
+!.pre-commit-config.yaml
+!.gitignore

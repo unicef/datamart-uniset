@@ -45,6 +45,10 @@ def auth_user_oauth(self, userinfo):
     self.update_user_auth_stat(user)
     return user
 
+
+auth_user_oauth.patched = True
+
+
 #
 # def oauth_authorized(self, provider):
 #     from flask_appbuilder.security.views import (as_unicode, flash, login_user, redirect)
@@ -101,6 +105,9 @@ def dynamic_class_import(class_path):
     except Exception as e:
         base.log.exception(e)
         base.log.error(base.LOGMSG_ERR_FAB_ADDON_IMPORT.format(class_path, e))
+
+
+dynamic_class_import.patched = True
 
 
 class Patcher:

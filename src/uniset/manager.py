@@ -1,8 +1,9 @@
 import logging
 import os
 
-from flask import Blueprint
 from flask_appbuilder.basemanager import BaseManager
+
+from flask import Blueprint
 
 from uniset import ROOT
 

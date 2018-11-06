@@ -1,7 +1,7 @@
 UNISET
 ======
 
-[![CircleCI](https://circleci.com/gh/unicef/uniset.svg?style=svg)](https://circleci.com/gh/unicef/uniset)
+[![CircleCI](https://circleci.com/gh/unicef/datamart-uniset.svg?style=svg)](https://circleci.com/gh/unicef/datamart-uniset)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e302b4b24d7b473a8b34a9a7d27d2a92)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=unicef/uniset&amp;utm_campaign=Badge_Grade)
 [![](https://images.microbadger.com/badges/version/unicef/uniset.svg)](https://microbadger.com/images/unicef/uniset)
 
@@ -21,6 +21,9 @@ Extras
 
 - Send email to user to with account/granted privileges informations
 - Merging existing records with oauth accounts 
+
+Quickstart
+----------
 
 
 Warning Notes
