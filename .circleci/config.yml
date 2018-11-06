@@ -211,7 +211,7 @@ jobs:
                     -e DATABASE_URL=${DATABASE_URL} \
                     --name uniset \
                     -it ${DOCKER_IMAGE}:${BUILD_TAG} \
-                    django-admin check
+                    uniset check
       - deploy:
           name: Push docker image
           command: |
