@@ -76,7 +76,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "36:e1:ae:c3:f2:0f:27:67:85:44:78:5d:ec:2f:b2:0d"
+            - "29:69:c2:aa:ac:9c:e7:62:2a:41:1d:d7:b4:47:38:a4"
       - run:
           name: close release and create/push tag
           command: |
@@ -172,7 +172,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "2b:6f:56:d6:6d:01:3d:81:44:3f:81:98:e9:ef:fe:ff"
+            - "29:69:c2:aa:ac:9c:e7:62:2a:41:1d:d7:b4:47:38:a4"
       - setup_remote_docker
       - run:
           name: Echo environment
@@ -209,6 +209,9 @@ jobs:
             docker run \
                     --rm \
                     -e DATABASE_URL=${DATABASE_URL} \
+                    -e SECRET_KEY=supersecretkey \
+                    -e AZURE_CLIENT_ID=id \
+                    -e AZURE_CLIENT_SECRET=secret \
                     --name uniset \
                     -it ${DOCKER_IMAGE}:${BUILD_TAG} \
                     uniset check
