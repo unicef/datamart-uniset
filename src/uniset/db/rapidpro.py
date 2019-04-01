@@ -33,5 +33,6 @@ run = Table('auth_group', metadata,
             Column('user_id', types.String(64)),
             Column('path', types.JSON),
             Column('values', types.JSON),
-            ForeignKeyConstraint(('user_id',), ['user.id'])
+            ForeignKeyConstraint(('user_id',), ['user.id'],
+                                 table=contact)
             )

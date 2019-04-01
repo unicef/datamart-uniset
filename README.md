@@ -15,6 +15,7 @@ Extras
 - ability to load users from UNICEF AD and grant them specif roles, without force them to login
 - Login using Organization's Active Directory
 - Auto creation of admins if listed in ADMINS config list 
+- Sentry error logging capability
 
 
 ##### TODO:

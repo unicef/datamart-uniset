@@ -11,8 +11,7 @@ ADMINS = ('s.apostolico@gmail.com',
           'sapostolico@unicef.org',
           'sapostolico@nikunicef.onmicrosoft.com',
           'sapostolico@saxix.onmicrosoft.com',
-          'da13bd43-4586-444e-a9d1-7e6e96d3126f@noreply.com',
-          '94501d3a-8346-4872-948c-82bce9e514b4@noreply.com',
+          'ddinicola@unicef.org',
           )
 
 AUTH_TYPE = AUTH_OAUTH

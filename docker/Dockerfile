@@ -14,7 +14,7 @@ RUN if [ "${DEVELOP}" = "1" ]; then \
     && curl ${GITHUB_CREDENTIALS}: -L "https://github.com/unicef/uniset/archive/${VERSION}.tar.gz" | tar -xzf - --strip-components=1; \
     fi
 
-FROM python:3.6.4
+FROM python:3.6.8
 ARG BUILD_DATE
 ARG PIPENV_ARGS
 ARG VERSION
@@ -45,15 +45,16 @@ ENV SUPERVISOR_PWD "admin"
 
 ADD docker/supervisord.conf /etc/supervisord.conf
 ADD docker/redis.conf /etc/redis.conf
-ADD docker/entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ADD docker/db-isready.py /usr/local/bin/db-isready
 ADD docker/wait-for-it.sh /usr/local/bin/wait-for-it
 
-RUN set -ex && apt-get -q update && apt-get install -y \
-    libsasl2-dev \
-    supervisor \
-    redis-server \
-    gcc \
+RUN set -ex \
+    && apt-get -q update \
+    && apt-get install -y \
+        libsasl2-dev \
+        supervisor \
+        redis-server \
+        gcc \
     && chmod +x /usr/local/bin/wait-for-it \
     && chmod +x /usr/local/bin/db-isready \
     && apt-get clean \
@@ -68,6 +69,7 @@ RUN set -ex \
     && pipenv install --system --deploy --ignore-pipfile $PIPENV_ARGS \
     && pip install -e .
 
+ADD docker/entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["uniset"]

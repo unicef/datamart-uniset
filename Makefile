@@ -12,3 +12,7 @@ clean:
 fullclean:
 	rm -fr .tox .cache .pytest_cache .venv
 	$(MAKE) clean
+
+develop:
+	pipenv install --skip-loc
+	pip install pandas==0.23.4

@@ -1,0 +1,2 @@
+# Superset is not Pipfile compatible, having dependencies that cannot be safely resolved
+superset==0.29.0rc7

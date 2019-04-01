@@ -21,7 +21,9 @@ DEFAULTS = dict(
     MAIL_DEFAULT_SENDER='',
     MAIL_MAX_EMAILS='',
     MAIL_SUPPRESS_SEND=(bool, True),
-    MAIL_ASCII_ATTACHMENTS=(bool, False)
+    MAIL_ASCII_ATTACHMENTS=(bool, False),
+    SENTRY_DSN=(str, ''),
+
 )
 
 env = Env(defaults=DEFAULTS)

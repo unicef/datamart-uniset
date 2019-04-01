@@ -1,0 +1,6 @@
+# Superset is not Pipfile compatible, having dependencies that cannot be safely resolved
+pandas==0.23.4
+superset==0.28.1
+psycopg2-binary==2.7.7
+redis==3.2.1
+flask_oauthlib==0.9.5

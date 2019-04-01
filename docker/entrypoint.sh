@@ -8,7 +8,7 @@ mkdir -p /var/uniset/{log,run}
 /etc/init.d/redis-server stop
 /etc/init.d/supervisor stop
 
-if [ "$*" == "uniset" ];then
+if [[ "$*" == "uniset" ]];then
 
     set -ex
     db-isready --timeout 60
@@ -26,11 +26,11 @@ if [ "$*" == "uniset" ];then
                 --limit-request-line 0 \
                 --limit-request-field_size 0 \
                 uniset.app:app
-elif [ "$*" == "celery" ];then
+elif [[ "$*" == "celery" ]];then
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair
-elif [ "$*" == "stack" ];then
-    exec supervisord --nodaemon -e DEBUG --config /etc/supervisord.conf
-elif [ "$*" == "dev" ];then
+elif [[ "$*" == "stack" ]];then
+    exec circusd /etc/circus.conf
+elif [[ "$*" == "dev" ]];then
     uniset runserver -d
 else
     exec "$@"
