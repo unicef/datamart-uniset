@@ -29,6 +29,9 @@ class UnisetSecurityManager(SupersetSecurityManager):
         if not user and not self.auth_user_registration:
             return None
         # User does not exist, create one if self registration.
+        # TODO: remove me
+        print(111, "security.py:33", 11111, userinfo)
+        print(111, "security.py:33", 11111, user)
         if not user:
             if userinfo['email'] in self.appbuilder.get_app.config['ADMINS']:
                 role = self.find_role('Admin')
@@ -70,6 +73,8 @@ def my_oauth_user_info(sm, provider, response):
         log.debug("MSGraph infos: {0}".format(gres.data))
         me.update(gres.data)
         fake_email = '%s@noreply.com' % me['oid']
+        # TODO: remove me
+        print(111, "security.py:77", 4444444, fake_email)
         return {'name': me['displayName'],
                 'email': me.get('mail', fake_email) or fake_email,
                 'first_name': me['givenName'],

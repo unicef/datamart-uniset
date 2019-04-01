@@ -7,9 +7,9 @@ superset==0.28.1
 pandas==0.23.4
 flask-appbuilder==1.12.1
 sqlalchemy==1.2.18
-#sqlalchemy-utils==0.33.6
+sqlalchemy-utils==0.33.11
 
 
 psycopg2-binary==2.7.7
 redis==3.2.1
-#flask_oauthlib==0.1
+flask_oauthlib==0.9.5
