@@ -102,7 +102,8 @@ APP_NAME = "uniset"
 # APP_THEME = "simplex.css"  # NICE
 # from uniset.security import UnisetSecurityManager
 # CUSTOM_SECURITY_MANAGER = UnisetSecurityManager
-ADDON_MANAGERS = ['uniset.manager.UnisetManager']
+
+# ADDON_MANAGERS = ['uniset.manager.UnisetManager']
 
 CACHE_CONFIG = {
     'CACHE_TYPE': 'redis',
