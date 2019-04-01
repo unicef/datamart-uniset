@@ -8,6 +8,9 @@ log = logging.getLogger(__name__)
 
 
 class UnisetSecurityManager(SupersetSecurityManager):
+    @property
+    def admins(self):
+        return self.appbuilder.get_app.config['ADMINS']
 
     def auth_user_oauth(self, userinfo):
         from flask_appbuilder.const import LOGMSG_WAR_SEC_LOGIN_FAILED
@@ -29,11 +32,9 @@ class UnisetSecurityManager(SupersetSecurityManager):
         if not user and not self.auth_user_registration:
             return None
         # User does not exist, create one if self registration.
-        # TODO: remove me
-        print(111, "security.py:33", 11111, userinfo)
-        print(111, "security.py:33", 11111, user)
+
         if not user:
-            if userinfo['email'] in self.appbuilder.get_app.config['ADMINS']:
+            if userinfo['email'] in self.admins:
                 role = self.find_role('Admin')
             else:
                 role = self.find_role(self.auth_user_registration_role)

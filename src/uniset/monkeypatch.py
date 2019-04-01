@@ -27,7 +27,13 @@ def auth_user_oauth(self, userinfo):
         return None
     # User does not exist, create one if self registration.
     if not user:
-        if userinfo['email'] in self.appbuilder.get_app.config['ADMINS']:
+        # TODO: remove me
+        print(111, "monkeypatch.py:31", 3333333333333333333333333333)
+        print(111, "monkeypatch.py:31", userinfo)
+        print(111, "monkeypatch.py:31", self.appbuilder.get_app.config['ADMINS'])
+
+        if (userinfo['email'] in self.appbuilder.get_app.config['ADMINS'] or
+                userinfo.get('name') in self.appbuilder.get_app.config['ADMINS']):
             role = self.find_role('Admin')
         else:
             role = self.find_role(self.auth_user_registration_role)
@@ -145,6 +151,7 @@ class Patcher:
 
         # we cannot override SecurityManager / monkeypatch what we need
         # Existing user support/merge
+        # from uniset.security import UnisetSecurityManager
         # am = UnisetSecurityManager(appbuilder)
         mth = types.MethodType(auth_user_oauth, appbuilder.sm)
         appbuilder.sm.auth_user_oauth = mth
