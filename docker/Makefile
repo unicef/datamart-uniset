@@ -51,8 +51,8 @@ build:
 
 .run:
 	cd .. && docker run \
+			-p 8088:5000 \
 			-p 8088:8088 \
-			-p 15000:15000 \
 			-p 5555:5555 \
 			--rm \
 			-e SECRET_KEY=${SECRET_KEY} \

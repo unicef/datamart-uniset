@@ -43,30 +43,30 @@ ENV SUPERVISOR_USER "admin"
 ENV SUPERVISOR_PWD "admin"
 
 
-ADD docker/supervisord.conf /etc/supervisord.conf
 ADD docker/redis.conf /etc/redis.conf
 ADD docker/db-isready.py /usr/local/bin/db-isready
 ADD docker/wait-for-it.sh /usr/local/bin/wait-for-it
+ADD docker/circus.conf /etc/circus.conf
 
 RUN set -ex \
     && apt-get -q update \
     && apt-get install -y \
         libsasl2-dev \
-        supervisor \
+        circus \
         redis-server \
         gcc \
     && chmod +x /usr/local/bin/wait-for-it \
     && chmod +x /usr/local/bin/db-isready \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install pip==18.0 pipenv --upgrade
+    && pip install pip
 
 WORKDIR /code
 COPY --from=builder /code /code
 RUN set -ex \
     ls -al /code \
     && cat src/uniset/__init__.py | grep version \
-    && pipenv install --system --deploy --ignore-pipfile $PIPENV_ARGS \
+    && pip install -r freeze.txt \
     && pip install -e .
 
 ADD docker/entrypoint.sh /usr/local/bin/docker-entrypoint.sh

@@ -4,21 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-#superset = "==0.29.0rc7"
-#click = "==6.7"
-#markdown = "==2.6.11"
-#"psycopg2-binary" = "*"
-#colorama = "==0.3.9"
-#Flask="==0.12.4"
-#flask-appbuilder = "==1.12.5"
-#flask-oauthlib = "*"
-#mysqlclient = "*"
-#redis = "*"
-#gevent = "*"
-#sentry-sdk = "*"
-#pandas= "==0.23.4"
 
 [dev-packages]
+uniset = {editable = true,git = "https://github.com/unicef/datamart-uniset.git",ref = "1c1a4ac1a36ebfecd74ad0b3cab793f96a6e3c1e"}
 ipython="*"
 pdbpp="*"
 pre-commit = "*"

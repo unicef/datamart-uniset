@@ -2,6 +2,7 @@
 !src
 !Pipfile
 !Pipfile.lock
+!freeze.txt
 !setup.py
 !README.md
 !docker/entrypoint.sh
@@ -9,3 +10,4 @@
 !docker/redis.conf
 !docker/db-isready.py
 !docker/wait-for-it.sh
+!docker/circus.conf
