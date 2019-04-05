@@ -14,3 +14,4 @@ psycopg2-binary==2.7.7
 redis==3.2.1
 flask_oauthlib==0.9.5
 oauthlib==2.1.0
+sentry_sdk

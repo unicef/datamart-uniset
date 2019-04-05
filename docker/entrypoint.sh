@@ -20,7 +20,6 @@ if [[ "$*" == "uniset" ]];then
     SUPERSET_UPDATE_PERMS=1 uniset init
 
     gunicorn    -w $WORKERS \
-                -k gevent \
                 --timeout 60 \
                 -b  0.0.0.0:8088 \
                 --limit-request-line 0 \

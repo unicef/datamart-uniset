@@ -1,5 +1,5 @@
 CMD?=
-TARGET?=dev
+TARGET?=0.1.0a0
 PIPENV_PYPI_MIRROR?=https://pypi.org/simple/
 DOCKER_IMAGE?=unicef/uniset
 DOCKERFILE?=docker/Dockerfile
@@ -51,7 +51,7 @@ build:
 
 .run:
 	cd .. && docker run \
-			-p 8088:5000 \
+			-p 5000:5000 \
 			-p 8088:8088 \
 			-p 5555:5555 \
 			--rm \

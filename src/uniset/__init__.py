@@ -4,7 +4,7 @@ import os
 from uniset.settings import env
 from .monkeypatch import patcher
 
-VERSION = __version__ = '0.3'
+VERSION = __version__ = '0.1.0a0'
 NAME = 'uniset'
 
 ROOT = os.path.dirname(__file__)

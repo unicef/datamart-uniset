@@ -65,7 +65,7 @@ WORKDIR /code
 COPY --from=builder /code /code
 RUN set -ex \
     ls -al /code \
-    && cat src/uniset/__init__.py | grep version \
+    && cat src/uniset/__init__.py | grep VERSION \
     && pip install -r freeze.txt \
     && pip install -e .
 
