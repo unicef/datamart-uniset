@@ -41,37 +41,37 @@ class UnisetManager(BaseManager):
         #                          category="Security",
         #                          category_icon="fa-cloud-download-alt")
 
-        from .monkeypatch import patcher
-        patcher.patch2(self.appbuilder)
-        from uniset.azure.jwt import _azure_jwt_token_parse
-
-        @self.appbuilder.sm.oauth_user_info_getter
-        def my_oauth_user_info(sm, provider, response):
-            from flask_appbuilder.security.manager import log
-            if provider == 'google':
-                me = sm.oauth_remotes[provider].get('userinfo')
-                log.debug("User info from Google: {0}".format(me.data))
-                return {'username': "google_" + me.data.get('id', ''),
-                        'first_name': me.data.get('given_name', ''),
-                        'last_name': me.data.get('family_name', ''),
-                        'email': me.data.get('email', '')}
-
-            if provider == 'azure':
-                log.debug("Azure response received : {0}".format(response))
-                id_token = response['id_token']
-                log.debug(str(id_token))
-                me = _azure_jwt_token_parse(id_token)
-                log.debug("Parse JWT token : {0}".format(me))
-                gres = sm.oauth_remotes[provider].get('users/%s' % me['oid'])
-                log.debug("MSGraph infos: {0}".format(gres.data))
-                me.update(gres.data)
-                fake_email = '%s@noreply.com' % me['oid']
-                return {'name': me['displayName'],
-                        'email': me.get('mail', fake_email) or fake_email,
-                        'first_name': me['givenName'],
-                        'last_name': me['surname'],
-                        'id': me['oid'],
-                        'username': me['oid']}
-
-            else:
-                return {}
+        # from .monkeypatch import patcher
+        # patcher.patch2(self.appbuilder)
+        # from uniset.azure.jwt import _azure_jwt_token_parse
+        #
+        # @self.appbuilder.sm.oauth_user_info_getter
+        # def my_oauth_user_info(sm, provider, response):
+        #     from flask_appbuilder.security.manager import log
+        #     if provider == 'google':
+        #         me = sm.oauth_remotes[provider].get('userinfo')
+        #         log.debug("User info from Google: {0}".format(me.data))
+        #         return {'username': "google_" + me.data.get('id', ''),
+        #                 'first_name': me.data.get('given_name', ''),
+        #                 'last_name': me.data.get('family_name', ''),
+        #                 'email': me.data.get('email', '')}
+        #
+        #     if provider == 'azure':
+        #         log.debug("Azure response received : {0}".format(response))
+        #         id_token = response['id_token']
+        #         log.debug(str(id_token))
+        #         me = _azure_jwt_token_parse(id_token)
+        #         log.debug("Parse JWT token : {0}".format(me))
+        #         gres = sm.oauth_remotes[provider].get('users/%s' % me['oid'])
+        #         log.debug("MSGraph infos: {0}".format(gres.data))
+        #         me.update(gres.data)
+        #         fake_email = '%s@noreply.com' % me['oid']
+        #         return {'name': me['displayName'],
+        #                 'email': me.get('mail', fake_email) or fake_email,
+        #                 'first_name': me['givenName'],
+        #                 'last_name': me['surname'],
+        #                 'id': me['oid'],
+        #                 'username': me['oid']}
+        #
+        #     else:
+        #         return {}

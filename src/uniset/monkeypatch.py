@@ -28,10 +28,6 @@ def auth_user_oauth(self, userinfo):
     # User does not exist, create one if self registration.
     if not user:
         # TODO: remove me
-        print(111, "monkeypatch.py:31", 3333333333333333333333333333)
-        print(111, "monkeypatch.py:31", userinfo)
-        print(111, "monkeypatch.py:31", self.appbuilder.get_app.config['ADMINS'])
-
         if (userinfo['email'] in self.appbuilder.get_app.config['ADMINS'] or
                 userinfo.get('name') in self.appbuilder.get_app.config['ADMINS']):
             role = self.find_role('Admin')
@@ -55,50 +51,6 @@ def auth_user_oauth(self, userinfo):
 auth_user_oauth.patched = True
 
 
-#
-# def oauth_authorized(self, provider):
-#     from flask_appbuilder.security.views import (as_unicode, flash, login_user, redirect)
-#
-#     log.debug("Authorized init")
-#     resp = self.appbuilder.sm.oauth_remotes[provider].authorized_response()
-#     if resp is None:
-#         flash(u'You denied the request to sign in.', 'warning')
-#         return redirect('login')
-#     log.debug('OAUTH Authorized resp: {0}'.format(resp))
-#     # Retrieves specific user info from the provider
-#     try:
-#         self.appbuilder.sm.set_oauth_session(provider, resp)
-#         userinfo = self.appbuilder.sm.oauth_user_info(provider, resp)
-#         if not userinfo['email']:
-#             raise Exception("User does not have an email. cannot login")
-#     except Exception as e:
-#         log.error("Error returning OAuth user info: {0}".format(e))
-#         user = None
-#     else:
-#         log.debug("User info retrieved from {0}: {1}".format(provider, userinfo))
-#         # User email is not whitelisted
-#         if provider in self.appbuilder.sm.oauth_whitelists:
-#             whitelist = self.appbuilder.sm.oauth_whitelists[provider]
-#             allow = False
-#             for e in whitelist:
-#                 if re.search(e, userinfo['email']):
-#                     allow = True
-#                     break
-#             if not allow:
-#                 flash(u'You are not authorized.', 'warning')
-#                 return redirect('login')
-#         else:
-#             log.debug('No whitelist for OAuth provider')
-#         user = self.appbuilder.sm.auth_user_oauth(userinfo)
-#
-#     if user is None:
-#         flash(as_unicode(self.invalid_login_message), 'warning')
-#         return redirect('login')
-#     else:
-#         login_user(user)
-#         return redirect(self.appbuilder.get_url_for_index)
-
-
 def dynamic_class_import(class_path):
     from functools import reduce
     from flask_appbuilder import base
@@ -120,6 +72,8 @@ class Patcher:
     applied = []
 
     def patch1(self):
+        # fix for 'NameError: name 'reduce' is not defined'
+        # for python 3.6
         if 1 in self.applied:
             return
         self.applied.append(1)
@@ -129,32 +83,13 @@ class Patcher:
     def patch2(self, appbuilder):
         if 2 in self.applied:
             return
-        self.applied.append(2)
-
-        from superset import app  # noqa
-        from uniset import views  # noqa
-
-        # # Azure support
-        # from flask_appbuilder.security.views import AuthOAuthView
+        # self.applied.append(2)
         #
-        # auth_view = [o for o in appbuilder.baseviews if isinstance(o, AuthOAuthView)]
-        # if auth_view:
-        #     mth = types.MethodType(oauth_authorized, auth_view[0])
-        #     auth_view[0].oauth_authorized = mth
-        #     app.view_functions['AuthOAuthView.oauth_authorized'] = mth
-
-        # appbuilder.baseviews = [o for o in appbuilder.baseviews if not isinstance(o, AuthOAuthView)]
-        # v = appbuilder.add_view_no_menu(OAuthView)
-        # appbuilder.sm.auth_view = v
-        # app.view_functions['AuthOAuthView.oauth_authorized'] = v.oauth_authorized
-        # app.view_functions['AuthOAuthView.login'] = v.login
-
-        # we cannot override SecurityManager / monkeypatch what we need
-        # Existing user support/merge
-        # from uniset.security import UnisetSecurityManager
-        # am = UnisetSecurityManager(appbuilder)
-        mth = types.MethodType(auth_user_oauth, appbuilder.sm)
-        appbuilder.sm.auth_user_oauth = mth
+        # from superset import app  # noqa
+        # from uniset import views  # noqa
+        #
+        # mth = types.MethodType(auth_user_oauth, appbuilder.sm)
+        # appbuilder.sm.auth_user_oauth = mth
 
 
 patcher = Patcher()

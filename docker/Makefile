@@ -1,7 +1,7 @@
 CMD?=
 TARGET?=0.1.0a0
 PIPENV_PYPI_MIRROR?=https://pypi.org/simple/
-DOCKER_IMAGE?=unicef/uniset
+DOCKER_IMAGE?=unicef/uniset-alpine
 DOCKERFILE?=docker/Dockerfile
 BUILD_OPTIONS?=--squash --compress --rm
 DEVELOP?="0"
